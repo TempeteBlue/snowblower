@@ -6,6 +6,7 @@ Génère automatiquement les fichiers _index.md pour les manuels
 
 import os
 import yaml
+import re
 from pathlib import Path
 
 
@@ -52,6 +53,37 @@ def find_pdfs_and_images(folder_path):
     return pdfs, images
 
 
+def parse_existing_frontmatter(index_path):
+    """Parse existing _index.md to extract custom frontmatter like url and aliases"""
+    if not os.path.exists(index_path):
+        return {}
+
+    try:
+        with open(index_path, "r", encoding="utf-8") as f:
+            content = f.read()
+
+        # Check if there's frontmatter
+        if content.startswith("---"):
+            # Extract frontmatter
+            match = re.match(r"^---\s*\n(.*?)\n---\s*\n", content, re.DOTALL)
+            if match:
+                frontmatter_text = match.group(1)
+                try:
+                    existing = yaml.safe_load(frontmatter_text)
+                    # Preserve specific fields
+                    preserved = {}
+                    for key in ["url", "aliases", "slug"]:
+                        if key in existing:
+                            preserved[key] = existing[key]
+                    return preserved
+                except:
+                    pass
+    except:
+        pass
+
+    return {}
+
+
 def generate_index_for_folder(folder_path, relative_path, has_subfolders=False):
     """Génère un fichier _index.md pour un dossier"""
     pdfs, images = find_pdfs_and_images(folder_path)
@@ -59,20 +91,41 @@ def generate_index_for_folder(folder_path, relative_path, has_subfolders=False):
     # Vérifier si _index.md existe déjà
     index_path = os.path.join(folder_path, "_index.md")
 
+    # Parse existing frontmatter to preserve custom fields
+    existing_frontmatter = parse_existing_frontmatter(index_path)
+
+    # Check if this is the root manuals folder
+    is_root = relative_path == "" or relative_path == "manuels"
+
     # Pour un dossier de catégorie (sans PDFs mais avec sous-dossiers)
     if not pdfs and not images and has_subfolders:
         folder_name = os.path.basename(folder_path)
 
-        frontmatter = {
-            "title": folder_name,
-            "description": f"Manuels de pièces pour {folder_name}",
-            "draft": False,
+        # Determine title based on folder
+        title_map = {
+            "Balais": "Brooms",
+            "Lames": "Blades",
+            "Options": "Options",
+            "Débris": "Debris",
+            "Souffleuse-Attaches rapides": "Snow Blowers - Quick Attach",
         }
+
+        frontmatter = {
+            "title": title_map.get(folder_name, folder_name),
+            "description": f"Parts manuals for {folder_name}",
+        }
+
+        # Preserve existing custom fields
+        frontmatter.update(existing_frontmatter)
+
+        # Add defaults if not already set
+        if "draft" not in frontmatter:
+            frontmatter["draft"] = False
 
         content = f"""---
 {yaml.dump(frontmatter, allow_unicode=True, sort_keys=False)}---
 
-# {folder_name}
+# {frontmatter["title"]}
 """
 
         with open(index_path, "w", encoding="utf-8") as f:
@@ -87,9 +140,15 @@ def generate_index_for_folder(folder_path, relative_path, has_subfolders=False):
 
         frontmatter = {
             "title": folder_name,
-            "description": f"Manuel de pièces pour {folder_name}",
-            "draft": False,
+            "description": f"Parts manual for {folder_name}",
         }
+
+        # Preserve existing custom fields
+        frontmatter.update(existing_frontmatter)
+
+        # Add defaults if not already set
+        if "draft" not in frontmatter:
+            frontmatter["draft"] = False
 
         if pdfs:
             frontmatter["manuals"] = pdfs
@@ -102,13 +161,13 @@ def generate_index_for_folder(folder_path, relative_path, has_subfolders=False):
 
 # {folder_name}
 
-## Caractéristiques
+## Specifications
 
 
 
-## Informations complémentaires
+## Additional Information
 
-Pour toute question concernant ce modèle ou pour commander des pièces, n'hésitez pas à [nous contacter](/contact/).
+For any questions about this model or to order parts, feel free to [contact us](/contact/).
 """
 
         with open(index_path, "w", encoding="utf-8") as f:

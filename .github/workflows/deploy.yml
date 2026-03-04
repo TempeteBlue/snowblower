@@ -244,6 +244,11 @@ jobs:
           fi
           echo "✅ Static folders cleanup completed"
 
+      - name: Ensure root section URLs
+        run: |
+          echo "🔗 Ensuring root section URLs are set to English..."
+          python3 scripts/ensure-root-urls.py || echo "Root URL script not found"
+
       - name: Generate product pages from data
         run: |
           echo "🔄 Auto-generating product pages..."
