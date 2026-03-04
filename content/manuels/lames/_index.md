@@ -2,6 +2,8 @@
 title: "Lames"
 description: "Manuels de pièces pour lames"
 url: "/manuals/lames/"
+aliases:
+  - /manuels/lames/
 ---
 
 # Lames

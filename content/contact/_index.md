@@ -1,8 +1,9 @@
 ---
 title: "Contact"
-description: "Contactez-nous pour toute question ou commande"
+description: "Contact us for any questions or orders"
+url: "/contact/"
 ---
 
-# Nous contacter
+# Contact us
 
-N'hésitez pas à nous contacter pour toute question concernant nos produits ou pour passer commande.
+Feel free to contact us for any questions about our products or to place an order.
