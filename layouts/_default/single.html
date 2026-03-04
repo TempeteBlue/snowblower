@@ -1,0 +1,90 @@
+{{ define "main" }}
+<div class="container page-container">
+  <article class="single-page">
+    <header class="page-header">
+      <h1 class="page-title">{{ .Title }}</h1>
+      {{ if .Params.subtitle }}
+      <p class="page-subtitle">{{ .Params.subtitle }}</p>
+      {{ end }}
+      
+      <!-- Meta information -->
+      {{ if or .Params.date .Params.author }}
+      <div class="page-meta">
+        {{ if .Params.date }}
+        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 janvier 2006" }}</time>
+        {{ end }}
+        {{ if .Params.author }}
+        <span class="author">par {{ .Params.author }}</span>
+        {{ end }}
+      </div>
+      {{ end }}
+    </header>
+    
+    <!-- Featured image -->
+    {{ if .Params.image }}
+    <figure class="page-image">
+      <img src="{{ .Params.image | relURL }}" alt="{{ .Title }}" loading="eager">
+      {{ if .Params.image_caption }}
+      <figcaption>{{ .Params.image_caption }}</figcaption>
+      {{ end }}
+    </figure>
+    {{ end }}
+    
+    <!-- Specifications (if any) -->
+    {{ if .Params.specs }}
+    <div class="specs-section">
+      <h2>Spécifications techniques</h2>
+      <dl class="specs-list">
+        {{ range $key, $value := .Params.specs }}
+        <dt>{{ $key }}</dt>
+        <dd>{{ $value }}</dd>
+        {{ end }}
+      </dl>
+    </div>
+    {{ end }}
+    
+    <!-- Main content -->
+    <div class="page-content">
+      {{ .Content }}
+    </div>
+    
+    <!-- Gallery (if any) -->
+    {{ if .Params.gallery }}
+    <div class="gallery-section">
+      <h2>Galerie photos</h2>
+      <div class="gallery-grid">
+        {{ range .Params.gallery }}
+        <figure class="gallery-item">
+          <img src="{{ .src | relURL }}" alt="{{ .alt }}" loading="lazy">
+          {{ if .caption }}
+          <figcaption>{{ .caption }}</figcaption>
+          {{ end }}
+        </figure>
+        {{ end }}
+      </div>
+    </div>
+    {{ end }}
+    
+    <!-- Related manuals (if product) -->
+    {{ if and (eq .Section "produits") .Params.manual_ref }}
+    <div class="related-manual">
+      <h2>📖 Manuel de pièces</h2>
+      <a href="{{ .Params.manual_ref | relURL }}" class="btn btn-secondary">
+        Consulter le manuel
+      </a>
+    </div>
+    {{ end }}
+    
+    <!-- Tags -->
+    {{ if .Params.tags }}
+    <footer class="page-footer">
+      <div class="tags">
+        {{ range .Params.tags }}
+        <span class="tag">{{ . }}</span>
+        {{ end }}
+      </div>
+    </footer>
+    {{ end }}
+  </article>
+</div>
+{{ end }}

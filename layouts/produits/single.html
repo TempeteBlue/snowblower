@@ -1,0 +1,195 @@
+{{ define "main" }}
+{{ $data := merge .Params (dict 
+  "title" (.Params.title | default .Title)
+  "description" (.Params.description | default "")
+  "images" (.Params.images | default slice)
+  "documents" (.Params.documents | default slice)
+  "price" (.Params.price | default "")
+  "price_note" (.Params.price_note | default "")
+  "sku" (.Params.sku | default "")
+  "in_stock" (.Params.in_stock | default true)
+  "specs" (.Params.specs | default dict)
+) }}
+{{ $images := $data.images }}
+{{ $documents := $data.documents }}
+{{ $firstImage := "" }}
+{{ if $images }}{{ $firstImage = index $images 0 }}{{ end }}
+
+<div class="container page-container">
+  <article class="product-page" itemscope itemtype="https://schema.org/Product">
+    <div class="product-layout">
+      <!-- Colonne images -->
+      <div class="product-gallery">
+        {{ if $images }}
+          {{ $imageCount := len $images }}
+          {{ if gt $imageCount 1 }}
+          <div class="carousel-container">
+            <div class="carousel-track" id="carouselTrack">
+              {{ range $images }}
+              <div class="carousel-slide">
+                <img src="{{ . | absURL }}" alt="{{ $data.title }}" itemprop="image">
+              </div>
+              {{ end }}
+            </div>
+            <button class="carousel-btn carousel-prev" onclick="moveCarousel(-1)">&#10094;</button>
+            <button class="carousel-btn carousel-next" onclick="moveCarousel(1)">&#10095;</button>
+            <div class="carousel-dots">
+              {{ range $i, $_ := $images }}
+              <span class="carousel-dot {{ if eq $i 0 }}active{{ end }}" onclick="goToSlide({{ $i }})"></span>
+              {{ end }}
+            </div>
+          </div>
+          {{ else }}
+          <figure class="product-main-image">
+            <img src="{{ index $images 0 | absURL }}" alt="{{ $data.title }}" id="main-product-image" itemprop="image">
+          </figure>
+          {{ end }}
+        {{ else }}
+          <div class="product-placeholder">
+            <img src="{{ "images/icone.svg" | relURL }}" alt="" style="width: 64px; height: 64px; filter: brightness(0) saturate(100%) invert(20%) sepia(100%) saturate(5000%) hue-rotate(0deg);">
+          </div>
+        {{ end }}
+      </div>
+      
+      <!-- Colonne informations -->
+      <div class="product-details">
+        <header class="product-header">
+          <h1 class="product-title" itemprop="name">{{ $data.title }}</h1>
+          {{ if $data.description }}
+          <p class="product-subtitle" itemprop="description">{{ $data.description }}</p>
+          {{ end }}
+          
+          <!-- Prix -->
+          {{ if $data.price }}
+          <div class="price-block" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+            <span class="price" itemprop="price">{{ $data.price }}</span>
+            <meta itemprop="priceCurrency" content="CAD">
+            {{ if $data.price_note }}
+            <span class="price-note">{{ $data.price_note }}</span>
+            {{ end }}
+            <link itemprop="availability" href="{{ if $data.in_stock }}https://schema.org/InStock{{ else }}https://schema.org/OutOfStock{{ end }}">
+          </div>
+          {{ end }}
+          
+          <!-- SKU et Stock -->
+          <div class="product-meta">
+            {{ if $data.sku }}
+            <span class="meta-item" itemprop="sku"><strong>Référence:</strong> {{ $data.sku }}</span>
+            {{ end }}
+            <span class="meta-item">
+              <strong>Disponibilité:</strong> 
+              {{ if $data.in_stock }}
+                <span class="stock in-stock">✓ En stock</span>
+              {{ else }}
+                <span class="stock out-of-stock">Sur commande</span>
+              {{ end }}
+            </span>
+          </div>
+        </header>
+        
+        <!-- Spécifications -->
+        {{ if $data.specs }}
+        <section class="product-specs-section">
+          <h2>Caractéristiques techniques</h2>
+          <table class="specs-table">
+            <tbody>
+              {{ range $key, $value := $data.specs }}
+              <tr>
+                <th>{{ $key }}</th>
+                <td>{{ $value }}</td>
+              </tr>
+              {{ end }}
+            </tbody>
+          </table>
+        </section>
+        {{ end }}
+        
+        <div class="product-description">
+          {{ .Content }}
+        </div>
+        
+        <!-- Documents / Manuels -->
+        {{ if $documents }}
+        <section class="product-documents">
+          <h2>📖 Documentation</h2>
+          <div class="documents-list">
+            {{ range $documents }}
+            <div class="document-item">
+              <div class="document-info">
+                <h3>{{ .title }}</h3>
+              </div>
+              <div class="document-actions">
+                <a href="{{ .file | absURL }}" class="btn btn-secondary" target="_blank" rel="noopener">
+                  Télécharger PDF
+                </a>
+              </div>
+            </div>
+            {{ end }}
+          </div>
+        </section>
+        {{ end }}
+        
+        <!-- Contact -->
+        <div class="product-cta">
+          <h2>Intéressé par ce produit?</h2>
+          <p>Contactez-nous pour connaître la disponibilité et les options de livraison.</p>
+          <a href="{{ "/contact/" | relURL }}?produit={{ $data.title | urlize }}" class="btn btn-primary">
+            Demander plus d'informations
+          </a>
+        </div>
+      </div>
+    </div>
+  </article>
+</div>
+{{ end }}
+
+{{ define "structured-data" }}
+{{ $data := merge .Params (dict 
+  "title" (.Params.title | default .Title)
+  "description" (.Params.description | default "")
+  "images" (.Params.images | default slice)
+  "price" (.Params.price | default "")
+  "in_stock" (.Params.in_stock | default true)
+  "sku" (.Params.sku | default "")
+) }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": {{ $data.title | jsonify }},
+  "description": {{ $data.description | jsonify }},
+  {{ with $data.sku }}"sku": {{ . | jsonify }},{{ end }}
+  {{ if $data.images }}
+  "image": [
+    {{ range $i, $img := $data.images }}{{ if $i }}, {{ end }}"{{ $img | absURL }}"{{ end }}
+  ],
+  {{ end }}
+  {{ if $data.price }}
+  "offers": {
+    "@type": "Offer",
+    "price": {{ replaceRE "[^0-9.]" "" $data.price | jsonify }},
+    "priceCurrency": "CAD",
+    "availability": {{ if $data.in_stock }}"https://schema.org/InStock"{{ else }}"https://schema.org/OutOfStock"{{ end }},
+    "url": {{ .Permalink | jsonify }},
+    "seller": {
+      "@type": "Organization",
+      "name": {{ .Site.Title | jsonify }}
+    }
+  }{{ end }}
+}
+</script>
+{{ end }}
+
+{{ define "scripts" }}
+<script>
+// Gallerie d'images
+document.querySelectorAll('.thumbnail').forEach(thumb => {
+  thumb.addEventListener('click', function() {
+    const mainImage = document.getElementById('main-product-image');
+    if (mainImage) {
+      mainImage.src = this.dataset.src;
+    }
+  });
+});
+</script>
+{{ end }}

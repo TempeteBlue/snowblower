@@ -1,0 +1,26 @@
+---
+title: "Souffleuse Blizzard B54c 2022"
+description: "Souffleuse professionnelle en excellent état - Faible kilométrage"
+categories:
+  - "Souffleur"
+price: "9 999 $"
+price_note: "Économisez 30% par rapport au neuf"
+condition: "Excellent"
+year: "2022"
+hours: "450"
+sku: "USED-BLZ-B54C-2022"
+date: "2024-01-01"
+specs:
+  Largeur de travail: "54 pouces (137 cm)"
+  Heures d'utilisation: "450 heures"
+  État général: "Excellent"
+  Dernière inspection: "Janvier 2025"
+  Garantie: "6 mois"
+  Vis sans fin: "Usure normale, 85% de vie restante"
+  Chute: "Excellente condition, aucune fissure"
+  Système hydraulique: "Pression testée et certifiée"
+images: []
+documents: []
+---
+
+Souffleuse professionnelle en excellent état - Faible kilométrage

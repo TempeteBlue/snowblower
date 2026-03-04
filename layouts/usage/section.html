@@ -1,0 +1,106 @@
+{{ define "main" }}
+{{ $data := merge .Params (dict 
+  "title" (.Params.title | default .Title)
+  "description" (.Params.description | default "")
+) }}
+{{ $is_root := eq .RelPermalink "/usage/" }}
+<div class="container page-container">
+  <header class="page-header">
+    <h1 class="page-title">{{ $data.title }}</h1>
+    {{ if $data.description }}
+    <p class="page-description">{{ $data.description }}</p>
+    {{ end }}
+  </header>
+
+  {{ if $is_root }}
+  {{/* Page racine /usage/ - Afficher les catégories */}}
+  {{ if .Sections }}
+  <section class="categories-grid-section">
+    <div class="categories-grid">
+      {{ range .Sections }}
+      <article class="category-card">
+        <a href="{{ .RelPermalink }}" class="category-link">
+          <div class="category-icon">📦</div>
+          <h3 class="category-title">{{ .Title }}</h3>
+          {{ if .Params.description }}
+          <p class="category-description">{{ .Params.description }}</p>
+          {{ end }}
+          <span class="category-count">{{ len .Pages }} équipement(s)</span>
+        </a>
+      </article>
+      {{ end }}
+    </div>
+  </section>
+  {{ else }}
+  <div class="empty-state">
+    <p>Aucune catégorie disponible pour le moment.</p>
+  </div>
+  {{ end }}
+  {{ else }}
+  {{/* Sous-catégorie - Afficher les équipements usagés */}}
+  {{ if .Pages }}
+  <section class="products-grid-section">
+    <div class="products-grid">
+      {{ range .Pages }}
+      <article class="product-card used-equipment">
+        {{ if .Params.images }}
+        <div class="product-image">
+          <img src="{{ index .Params.images 0 | absURL }}" alt="{{ .Title }}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'product-placeholder\'><img src=\'{{ "images/icone.svg" | relURL }}\' alt=\'\' style=\'width: 64px; height: 64px; filter: brightness(0) saturate(100%) invert(20%) sepia(100%) saturate(5000%) hue-rotate(0deg);\'></div>'">
+          {{ if .Params.condition }}
+          <span class="condition-badge {{ .Params.condition | lower }}">{{ .Params.condition }}</span>
+          {{ end }}
+        </div>
+        {{ else }}
+        <div class="product-image">
+          <div class="product-placeholder"><img src="{{ "images/icone.svg" | relURL }}" alt="" style="width: 64px; height: 64px; filter: brightness(0) saturate(100%) invert(20%) sepia(100%) saturate(5000%) hue-rotate(0deg);"></div>
+          {{ if .Params.condition }}
+          <span class="condition-badge {{ .Params.condition | lower }}">{{ .Params.condition }}</span>
+          {{ end }}
+        </div>
+        {{ end }}
+        
+        <div class="product-info">
+          <h3 class="product-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+          
+          {{ if .Params.description }}
+          <p class="product-description-short">{{ .Params.description }}</p>
+          {{ end }}
+          
+          {{ if or .Params.year .Params.hours }}
+          <div class="equipment-meta">
+            {{ if .Params.year }}
+            <span class="meta-item">📅 {{ .Params.year }}</span>
+            {{ end }}
+            {{ if .Params.hours }}
+            <span class="meta-item">⏱️ {{ .Params.hours }}h</span>
+            {{ end }}
+          </div>
+          {{ end }}
+          
+          {{ if .Params.price }}
+          <div class="product-price">{{ .Params.price }}</div>
+          {{ end }}
+          
+          <a href="{{ .RelPermalink }}" class="btn btn-secondary">
+            Voir les détails
+          </a>
+        </div>
+      </article>
+      {{ end }}
+    </div>
+  </section>
+  {{ else }}
+  <div class="empty-state">
+    <p>Aucun équipement usagé disponible dans cette catégorie pour le moment.</p>
+    <p>Contactez-nous pour connaître les prochaines arrivées.</p>
+    <a href="{{ "/contact/" | relURL }}" class="btn btn-primary">Nous contacter</a>
+  </div>
+  {{ end }}
+  
+  <!-- Lien retour -->
+  <div class="back-link">
+    <a href="{{ "/usage/" | relURL }}" class="btn btn-outline">← Retour aux catégories</a>
+  </div>
+  {{ end }}
+</div>
+{{ end }}

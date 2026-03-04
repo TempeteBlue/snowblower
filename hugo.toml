@@ -1,0 +1,81 @@
+baseURL = 'https://www.souffleur.ca/'
+languageCode = 'fr-CA'
+title = 'Tempête est le distributeur autorisé des pièces et produits Radtech ( www.radtech.ca), nous sommes fiers de vendre d’excellents produits fabriqués dans la région de Chaudière-Appalaches, et cela à d’excellent prix.'
+
+# No theme - using custom layouts
+
+# Permalinks canoniques avec catégories
+[permalinks]
+  manuels = '/manuels/:sections/:slug/'
+  produits = '/produits/:sections/:slug/'
+  usage = '/usage/:sections/:slug/'
+
+# Taxonomies pour organiser les manuels
+[taxonomies]
+  categorie = 'categories'
+  marque = 'marques'
+  type = 'types'
+
+# Paramètres du site
+[params]
+  author = "Tempête"
+  description = "Tempête est le distributeur autorisé des pièces et produits Radtech ( www.radtech.ca), nous sommes fiers de vendre d’excellents produits fabriqués dans la région de Chaudière-Appalaches, et cela à d’excellent prix."
+  phone = "(418) 478-2118"
+  email = "david@tempete.ca"
+  address = "Thetford Mines"
+  hours = "Lun-Ven: 8h-17h"
+  
+  # Configuration recherche
+  [params.search]
+    enabled = true
+    
+  # Réseaux sociaux
+  [params.social]
+    facebook = "https://www.facebook.com/tempete.ca"
+
+# Menu principal
+[menu]
+  [[menu.main]]
+    identifier = "produits"
+    name = "Produits"
+    url = "/produits/"
+    weight = 10
+    
+  [[menu.main]]
+    identifier = "usage"
+    name = "Usagés"
+    url = "/usage/"
+    weight = 20
+
+  [[menu.main]]
+    identifier = "manuels"
+    name = "Manuels"
+    url = "/manuels/"
+    weight = 30
+
+  [[menu.main]]
+    identifier = "contact"
+    name = "Contact"
+    url = "/contact/"
+    weight = 40
+
+# Configuration pour GitHub Pages
+[imaging]
+  quality = 85
+  resampleFilter = "lanczos"
+
+# Sécurité
+[security]
+  [security.funcs]
+    getenv = ['^HUGO_', '^CI$', '^GITHUB_']
+
+# Multilingue (optionnel)
+[languages]
+  [languages.fr]
+    weight = 1
+    title = "Tempête"
+    languageName = "Français"
+  [languages.en]
+    weight = 2
+    title = "Tempête"
+    languageName = "English"

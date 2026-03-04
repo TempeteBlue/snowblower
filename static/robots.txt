@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://souffleur.ca/sitemap.xml
+
+# Optimize crawl budget
+Disallow: /admin/
+Disallow: /draft/
+Disallow: /private/
+Disallow: /*?*query=*
+
+# Allow CSS and JS for proper rendering
+Allow: /css/
+Allow: /js/
+Allow: /images/
+Allow: /static/
+
+# Crawl-delay for heavy pages
+Crawl-delay: 1

@@ -1,0 +1,59 @@
+sa92b:
+  largeur: "92 pouces (2337 mm)"
+  hauteur: "48 pouces"
+  poids: "680 kg"
+  capacite_neige: "Jusqu'à 18 pouces"
+  systeme_rotation: "Hydraulique standard"
+  deversement: "Électrique (option 8151)"
+  attache: "Attache rapide compatible John Deere"
+  garantie: "2 ans pièces et main-d'œuvre"
+  
+sa98b:
+  largeur: "98 pouces (2489 mm)"
+  hauteur: "50 pouces"
+  poids: "720 kg"
+  capacite_neige: "Jusqu'à 20 pouces"
+  systeme_rotation: "Hydraulique haut débit"
+  deversement: "Électrique (option 8151)"
+  attache: "Attache rapide compatible John Deere"
+  garantie: "2 ans pièces et main-d'œuvre"
+
+b84a:
+  largeur: "84 pouces (2134 mm)"
+  diametre_balais: "32 pouces"
+  poids: "450 kg"
+  angle_inclinaison: "±25 degrés"
+  systeme: "Hydraulique"
+  attache: "Attache rapide"
+  vitesse_rotation: "150-200 RPM"
+  garantie: "1 an"
+
+b94a:
+  largeur: "94 pouces (2388 mm)"
+  diametre_balais: "32 pouces"
+  poids: "520 kg"
+  angle_inclinaison: "±25 degrés"
+  systeme: "Hydraulique"
+  attache: "Attache rapide"
+  vitesse_rotation: "150-200 RPM"
+  garantie: "1 an"
+
+h64a:
+  largeur: "64 pouces (1626 mm)"
+  hauteur: "42 pouces"
+  poids: "580 kg"
+  capacite_neige: "Jusqu'à 14 pouces"
+  systeme_rotation: "Hydraulique dédié"
+  deversement: "Manuel ou électrique"
+  compacite: "Compatible tracteurs compacts"
+  garantie: "2 ans"
+
+db6000:
+  largeur: "60 pouces"
+  hauteur: "36 pouces"
+  poids: "420 kg"
+  capacite: "Grand volume débris"
+  systeme_rotation: "Hydraulique"
+  deversement: "Élevateur hydraulique"
+  usage: "Débris feuilles et neige légère"
+  garantie: "1 an"

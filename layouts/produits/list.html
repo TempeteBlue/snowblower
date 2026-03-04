@@ -1,0 +1,40 @@
+{{ define "main" }}
+{{ $data := merge .Params (dict 
+  "title" (.Params.title | default .Title)
+  "description" (.Params.description | default "")
+) }}
+<div class="container page-container">
+  <header class="page-header">
+    <h1 class="page-title">{{ $data.title }}</h1>
+    {{ if $data.description }}
+    <p class="page-description">{{ $data.description }}</p>
+    {{ end }}
+  </header>
+
+  <!-- Liste des catégories -->
+  {{ if .Sections }}
+  <section class="categories-grid-section">
+    <div class="categories-grid">
+      {{ range .Sections }}
+      <article class="category-card">
+        <a href="{{ .RelPermalink }}" class="category-link">
+          <div class="category-icon">
+            📦
+          </div>
+          <h3 class="category-title">{{ .Title }}</h3>
+          {{ if .Params.description }}
+          <p class="category-description">{{ .Params.description }}</p>
+          {{ end }}
+          <span class="category-count">{{ len .Pages }} produit(s)</span>
+        </a>
+      </article>
+      {{ end }}
+    </div>
+  </section>
+  {{ else }}
+  <div class="empty-state">
+    <p>Aucune catégorie disponible pour le moment.</p>
+  </div>
+  {{ end }}
+</div>
+{{ end }}

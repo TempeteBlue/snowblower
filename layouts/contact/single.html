@@ -1,0 +1,78 @@
+{{ define "main" }}
+{{ $contact := index .Site.Data "contact" }}
+<div class="container page-container">
+  <article class="contact-page">
+    <header class="page-header">
+      <h1 class="page-title">{{ $contact.contact.title }}</h1>
+      <p class="page-description">{{ $contact.contact.description }}</p>
+    </header>
+    
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h2>Nos coordonnées</h2>
+        <ul class="contact-list">
+          <li>
+            <span class="contact-icon">📍</span>
+            <div>
+              <h3>Adresse</h3>
+              <p>{{ $contact.contact.address }}</p>
+            </div>
+          </li>
+          <li>
+            <span class="contact-icon">📞</span>
+            <div>
+              <h3>Téléphone</h3>
+              <p><a href="tel:{{ $contact.contact.phone | replaceRE "\\D" "" }}">{{ $contact.contact.phone }}</a></p>
+            </div>
+          </li>
+          <li>
+            <span class="contact-icon">✉️</span>
+            <div>
+              <h3>Courriel</h3>
+              <p><a href="mailto:{{ $contact.contact.email }}">{{ $contact.contact.email }}</a></p>
+            </div>
+          </li>
+          <li>
+            <span class="contact-icon">🕐</span>
+            <div>
+              <h3>Horaires</h3>
+              <p>{{ $contact.contact.hours }}</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="contact-form-section">
+        <h2>Envoyez-nous un message</h2>
+        <p>{{ $contact.contact.info_message }}</p>
+        
+        <div class="contact-email-box">
+          <h3>📧 Nous contacter par email</h3>
+          <p>Envoyez-nous directement un email à <a href="mailto:{{ $contact.contact.email }}">{{ $contact.contact.email }}</a></p>
+          <p><strong>N'oubliez pas de préciser :</strong></p>
+          <ul>
+            {{ range $contact.contact.form_instructions }}
+            <li>{{ . }}</li>
+            {{ end }}
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    {{ if $contact.contact.map_url }}
+    <div class="map-container">
+      <h2>Nous trouver</h2>
+      <iframe 
+        src="{{ $contact.contact.map_url }}"
+        width="100%" 
+        height="400" 
+        style="border:0; border-radius: 0;" 
+        allowfullscreen="" 
+        loading="lazy" 
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+    {{ end }}
+  </article>
+</div>
+{{ end }}

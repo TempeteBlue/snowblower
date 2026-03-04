@@ -1,0 +1,37 @@
+# Configuration de la page d'accueil
+# Éditez ce fichier pour modifier le contenu de la page d'accueil
+
+# Hero section
+hero:
+  title: "Tempête"
+  subtitle: "Tempête est le distributeur autorisé des pièces et produits Radtech ( www.radtech.ca), nous sommes fiers de vendre d’excellents produits fabriqués dans la région de Chaudière-Appalaches, et cela à d’excellent prix."
+  button_primary:
+    text: "Voir nos produits"
+    url: "/produits/"
+  button_secondary:
+    text: "Manuels de pièces"
+    url: "/manuels/"
+  # Image (placez l'image dans static/images/)
+  image: "images/hero-snowblower.jpg"
+
+# Features / Pourquoi nous choisir
+features:
+  - title: "Service après-vente"
+    icon: "🔧"
+    description: "Pièces disponibles et support technique pour tous nos équipements"
+    
+  - title: "Manuels complets"
+    icon: "📋"
+    description: "Documentation détaillée pour l'entretien et la réparation"
+    
+  - title: "Expédition rapide"
+    icon: "⚡"
+    description: "Pièces expédiées rapidement"
+
+# CTA Section (Call to Action)
+cta:
+  title: "Besoin d'aide pour trouver une pièce?"
+  description: "Notre équipe est disponible pour vous aider à identifier la bonne pièce pour votre équipement."
+  button:
+    text: "Nous contacter"
+    url: "/contact/"

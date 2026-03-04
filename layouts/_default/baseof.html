@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Lang | default `fr` }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+  
+  {{ hugo.Generator }}
+  
+  {{ $description := .Description | default .Params.description | default .Site.Params.description | default "Spécialiste en équipements de déneigement - Souffleuses, pièces et manuels techniques" }}
+  {{ $keywords := .Params.keywords | default "souffleuse à neige, souffleur, équipement hiver, concessionnaire, pièces, manuels techniques, déneigement, souffleuse professionnelle" }}
+  {{ $title := .Title | default .Site.Title }}
+  {{ $image := .Params.image | default .Site.Params.og_image | default ("/images/og-default.jpg" | absURL) }}
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="{{ $description }}">
+  <meta name="keywords" content="{{ $keywords }}">
+  <meta name="author" content="{{ .Site.Params.author | default "Tempête" }}">
+  <meta name="robots" content="{{ if .Params.robots }}{{ .Params.robots }}{{ else }}index, follow{{ end }}">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:site_name" content="{{ .Site.Title }}">
+  <meta property="og:title" content="{{ $title }}">
+  <meta property="og:description" content="{{ $description }}">
+  <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+  <meta property="og:url" content="{{ .Permalink }}">
+  <meta property="og:image" content="{{ $image | absURL }}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="fr_FR">
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ $title }}">
+  <meta name="twitter:description" content="{{ $description }}">
+  <meta name="twitter:image" content="{{ $image | absURL }}">
+  
+  <!-- Canonical -->
+  <link rel="canonical" href="{{ .Permalink }}">
+  
+  <!-- Structured Data - Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "{{ .Site.Title }}",
+    "url": "{{ .Site.BaseURL }}",
+    "logo": "{{ "/images/logo.png" | absURL }}",
+    "description": "{{ .Site.Params.description }}",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "customer service",
+      "areaServed": "CA",
+      "availableLanguage": ["French"]
+    }{{ if .Site.Params.social }},
+    "sameAs": [
+      {{ $first := true }}{{ range $key, $value := .Site.Params.social }}{{ if not $first }}, {{ end }}{{ $first = false }}"{{ $value }}"{{ end }}
+    ]{{ end }}
+  }
+  </script>
+  
+  {{ block "structured-data" . }}{{ end }}
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="{{ "css/style.css" | relURL }}">
+  
+  <!-- Google Font: Dancing Script -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="{{ "favicon.ico" | relURL }}?v=2">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ "images/apple-touch-icon.png" | relURL }}">
+  
+  <!-- Manifest for PWA -->
+  <link rel="manifest" href="{{ "manifest.json" | relURL }}">
+  <meta name="theme-color" content="#1a237e">
+  
+  {{ block "head" . }}{{ end }}
+</head>
+<body>
+  {{ partial "header.html" . }}
+  
+  <main id="main-content">
+    {{ block "main" . }}{{ end }}
+  </main>
+  
+  {{ partial "footer.html" . }}
+  
+  <!-- JavaScript -->
+  <script src="{{ "js/main.js" | relURL }}"></script>
+  {{ block "scripts" . }}{{ end }}
+  
+  <!-- Breadcrumb Structured Data -->
+  {{ if not .IsHome }}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Accueil",
+        "item": "{{ .Site.BaseURL }}"
+      }{{ if .Parent }},{
+        "@type": "ListItem",
+        "position": 2,
+        "name": "{{ .Parent.Title }}",
+        "item": "{{ .Parent.Permalink }}"
+      }{{ end }},{
+        "@type": "ListItem",
+        "position": {{ if .Parent }}3{{ else }}2{{ end }},
+        "name": "{{ .Title }}",
+        "item": "{{ .Permalink }}"
+      }
+    ]
+  }
+  </script>
+  {{ end }}
+</body>
+</html>

@@ -1,0 +1,24 @@
+# Configuration de la page contact
+# Éditez ce fichier pour modifier les informations de contact
+
+contact:
+  title: "Nous contacter"
+  description: "Contactez-nous pour toute question sur nos produits ou pour commander des pièces"
+  
+  # Informations de contact
+  address: "Thetford Mines"
+  phone: "(418) 478-2118"
+  email: "david@tempete.ca"
+  hours: "Lun-Ven: 8h-17h | Sam: Sur rendez-vous"
+  
+  # Google Maps embed URL
+  map_url: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2796.0!2d-73.5!3d45.5!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDXCsDMwJzAwLjAiTiA3M8KwMzAnMDAuMCJX!5e0!3m2!1sfr!2sca!4v1234567890"
+  
+  # Message d'information
+  info_message: "Pour toute question concernant nos produits ou pour commander des pièces, utilisez le formulaire ci-dessous ou contactez-nous directement par téléphone."
+  
+  # Instructions pour le formulaire
+  form_instructions:
+    - "Modèle de votre équipement"
+    - "Numéro de série"
+    - "Pièces recherchées"
