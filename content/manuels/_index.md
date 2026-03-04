@@ -1,4 +1,5 @@
 ---
-title: "Manuels"
-description: "Documentation technique et manuels de pièces"
+title: "Manuals"
+description: "Technical documentation and parts manuals"
+url: "/manuals/"
 ---

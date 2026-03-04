@@ -6,9 +6,9 @@ title = 'Tempête is the authorized distributor of Radtech parts and products (w
 
 # Canonical permalinks with categories
 [permalinks]
-  manuels = '/manuals/:sections/:slug/'
-  produits = '/products/:sections/:slug/'
-  usage = '/used/:sections/:slug/'
+  manuels = '/manuals/:slug/'
+  produits = '/products/:slug/'
+  usage = '/used/:slug/'
 
 # Taxonomies to organize manuals
 [taxonomies]

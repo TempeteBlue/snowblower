@@ -1,4 +1,5 @@
 ---
-title: "Produits"
-description: "Découvrez tous nos produits et équipements"
+title: "Products"
+description: "Discover all our products and equipment"
+url: "/products/"
 ---
