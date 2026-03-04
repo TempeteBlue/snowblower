@@ -7,15 +7,15 @@
         <span class="logo-text" style="font-family: 'Dancing Script', cursive; font-size: 2rem; font-weight: 700;">{{ .Site.Title }}</span>
       </a>
       
-      <!-- Navigation mobile toggle -->
+      <!-- Mobile navigation toggle -->
       <button class="nav-toggle" aria-label="Menu" aria-expanded="false">
         <span></span>
         <span></span>
         <span></span>
       </button>
       
-      <!-- Navigation principale -->
-      <nav class="main-nav" aria-label="Navigation principale">
+      <!-- Main navigation -->
+      <nav class="main-nav" aria-label="Main navigation">
         <ul class="nav-list">
           {{ range .Site.Menus.main }}
           <li class="nav-item">
@@ -26,10 +26,10 @@
           {{ end }}
         </ul>
         
-        <!-- Recherche -->
+        <!-- Search -->
         <div class="search-box">
-          <input type="search" id="site-search" placeholder="Rechercher un modèle..." aria-label="Recherche">
-          <button id="search-btn" aria-label="Lancer la recherche">
+          <input type="search" id="site-search" placeholder="Search for a model..." aria-label="Search">
+          <button id="search-btn" aria-label="Launch search">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <circle cx="11" cy="11" r="8"></circle>
               <path d="m21 21-4.35-4.35"></path>
@@ -37,9 +37,9 @@
           </button>
         </div>
         
-        <!-- Sélecteur de langue -->
+        <!-- Language selector -->
         <div class="language-selector">
-          <a href="https://snow-blower.ca" class="lang-link">English</a>
+          <a href="https://souffleur.ca" class="lang-link">Français</a>
         </div>
       </nav>
     </div>
@@ -48,10 +48,10 @@
 
 <!-- Breadcrumb -->
 {{ if not .IsHome }}
-<nav class="breadcrumb" aria-label="Fil d'Ariane">
+<nav class="breadcrumb" aria-label="Breadcrumb">
   <div class="container">
     <ol class="breadcrumb-list">
-      <li><a href="{{ "/" | relURL }}">Accueil</a></li>
+      <li><a href="{{ "/" | relURL }}">Home</a></li>
       {{ template "breadcrumbnav" (dict "p1" . "p2" .) }}
     </ol>
   </div>

@@ -1,37 +1,37 @@
 {{ define "main" }}
 {{ $homepage := index .Site.Data "homepage" }}
 
-<!-- Hero Section Amélioré -->
+<!-- Hero Section -->
 <section class="hero" style="background-image: url('{{ "images/hero-bg.jpg" | relURL }}'); background-size: cover; background-position: center;">
   <div class="hero-overlay" style="background: rgba(255, 255, 255, 0.7);"></div>
   <div class="container">
     <div class="hero-content" style="color: #1a1a2e;">
-      <span class="hero-badge" style="background: rgba(230, 57, 70, 0.9); color: #fff; border: none;"><img src="{{ "images/icone.svg" | relURL }}" alt="" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px; filter: brightness(0) saturate(100%) invert(100%);"> Spécialiste hivernal depuis 1985</span>
+      <span class="hero-badge" style="background: rgba(230, 57, 70, 0.9); color: #fff; border: none;"><img src="{{ "images/icone.svg" | relURL }}" alt="" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px; filter: brightness(0) saturate(100%) invert(100%);"> Winter specialist since 1985</span>
       <h1 class="hero-title" style="background: none; -webkit-background-clip: initial; -webkit-text-fill-color: initial; color: #1a1a2e; text-shadow: 0 2px 4px rgba(255,255,255,0.8);">{{ $homepage.hero.title }}</h1>
       <p class="hero-subtitle" style="color: #333;">{{ $homepage.hero.subtitle }}</p>
       <div class="hero-actions">
-        <a href="{{ "/produits/" | relURL }}" class="btn btn-primary btn-large" style="background: #e63946; color: #fff; border: 2px solid #e63946;">
-          <span>🛒 Voir nos produits</span>
+        <a href="{{ "/products/" | relURL }}" class="btn btn-primary btn-large" style="background: #e63946; color: #fff; border: 2px solid #e63946;">
+          <span>🛒 View our products</span>
         </a>
-        <a href="{{ "/usage/" | relURL }}" class="btn btn-secondary btn-large" style="background: #1a1a2e; color: #fff; border: 2px solid #1a1a2e;">
-          <span>♻️ Équipements usagés</span>
+        <a href="{{ "/used/" | relURL }}" class="btn btn-secondary btn-large" style="background: #1a1a2e; color: #fff; border: 2px solid #1a1a2e;">
+          <span>♻️ Used equipment</span>
         </a>
-        <a href="{{ "/manuels/" | relURL }}" class="btn btn-secondary btn-large" style="background: #0f3460; color: #fff; border: 2px solid #0f3460;">
-          <span>📖 Manuels</span>
+        <a href="{{ "/manuals/" | relURL }}" class="btn btn-secondary btn-large" style="background: #0f3460; color: #fff; border: 2px solid #0f3460;">
+          <span>📖 Manuals</span>
         </a>
       </div>
       <div class="hero-stats">
         <div class="stat">
           <span class="stat-number" style="color: #1a1a2e;">40+</span>
-          <span class="stat-label" style="color: #333;">Années d'expérience</span>
+          <span class="stat-label" style="color: #333;">Years of experience</span>
         </div>
         <div class="stat">
           <span class="stat-number" style="color: #1a1a2e;">5000+</span>
-          <span class="stat-label" style="color: #333;">Clients satisfaits</span>
+          <span class="stat-label" style="color: #333;">Satisfied customers</span>
         </div>
         <div class="stat">
           <span class="stat-number" style="color: #1a1a2e;">24h</span>
-          <span class="stat-label" style="color: #333;">Livraison disponible</span>
+          <span class="stat-label" style="color: #333;">Delivery available</span>
         </div>
       </div>
     </div>
@@ -42,9 +42,9 @@
 <section class="features">
   <div class="container">
     <div class="section-header">
-      <span class="section-badge">Nos avantages</span>
-      <h2>Pourquoi choisir Tempête?</h2>
-      <p class="section-description">Des équipements fiables et un service hors pair pour affronter l'hiver en toute confiance.</p>
+      <span class="section-badge">Our advantages</span>
+      <h2>Why choose Tempête?</h2>
+      <p class="section-description">Reliable equipment and outstanding service to face winter with confidence.</p>
     </div>
     <div class="features-grid">
       {{ range $homepage.features }}
@@ -60,46 +60,46 @@
   </div>
 </section>
 
-<!-- Catégories de Produits -->
+<!-- Product Categories -->
 <section class="product-categories-home">
   <div class="container">
     <div class="section-header">
-      <span class="section-badge">Notre gamme</span>
-      <h2>Nos catégories de produits</h2>
-      <p class="section-description">Des solutions complètes pour tous vos besoins hivernaux.</p>
+      <span class="section-badge">Our range</span>
+      <h2>Our product categories</h2>
+      <p class="section-description">Complete solutions for all your winter needs.</p>
     </div>
     
     <div class="categories-grid">
-      <a href="{{ "/produits/" | relURL }}" class="category-card-large">
+      <a href="{{ "/products/" | relURL }}" class="category-card-large">
         <div class="category-image" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);">
           <img src="{{ "images/icone.svg" | relURL }}" alt="" style="width: 48px; height: 48px; filter: brightness(0) saturate(100%) invert(20%) sepia(100%) saturate(5000%) hue-rotate(0deg);">
         </div>
         <div class="category-content">
-          <h3>Souffleuses à neige</h3>
-          <p>Professionnelles et industrielles de 48 à 64 pouces</p>
-          <span class="category-link">Explorer →</span>
+          <h3>Snow blowers</h3>
+          <p>Professional and industrial models from 48 to 64 inches</p>
+          <span class="category-link">Explore →</span>
         </div>
       </a>
 
-      <a href="{{ "/usage/" | relURL }}" class="category-card-large">
+      <a href="{{ "/used/" | relURL }}" class="category-card-large">
         <div class="category-image" style="background: linear-gradient(135deg, #d35400 0%, #e67e22 100%);">
           <span class="category-emoji">♻️</span>
         </div>
         <div class="category-content">
-          <h3>Équipements usagés</h3>
-          <p>Équipements d'occasion vérifiés et garantis</p>
-          <span class="category-link">Découvrir →</span>
+          <h3>Used equipment</h3>
+          <p>Verified and guaranteed pre-owned equipment</p>
+          <span class="category-link">Discover →</span>
         </div>
       </a>
 
-      <a href="{{ "/manuels/" | relURL }}" class="category-card-large">
+      <a href="{{ "/manuals/" | relURL }}" class="category-card-large">
         <div class="category-image" style="background: linear-gradient(135deg, #2c3e50 0%, #4ca1af 100%);">
           <span class="category-emoji">📖</span>
         </div>
         <div class="category-content">
-          <h3>Manuels de pièces</h3>
-          <p>Documentation complète pour l'entretien et les réparations</p>
-          <span class="category-link">Consulter →</span>
+          <h3>Parts manuals</h3>
+          <p>Complete documentation for maintenance and repairs</p>
+          <span class="category-link">Browse →</span>
         </div>
       </a>
     </div>
@@ -110,33 +110,33 @@
 <section class="services-section">
   <div class="container">
     <div class="section-header">
-      <span class="section-badge">Nos services</span>
-      <h2>Une expertise à votre service</h2>
+      <span class="section-badge">Our services</span>
+      <h2>Expertise at your service</h2>
     </div>
     
     <div class="services-grid">
       <div class="service-item">
         <div class="service-icon">🔧</div>
-        <h3>Service technique</h3>
-        <p>Support technique et pièces de rechange disponibles</p>
+        <h3>Technical service</h3>
+        <p>Technical support and spare parts available</p>
       </div>
       
       <div class="service-item">
         <div class="service-icon">🚚</div>
-        <h3>Livraison rapide</h3>
-        <p>Livraison disponible dans tout le Québec</p>
+        <h3>Fast delivery</h3>
+        <p>Delivery available throughout Quebec</p>
       </div>
       
       <div class="service-item">
         <div class="service-icon">💬</div>
-        <h3>Conseil personnalisé</h3>
-        <p>Notre équipe vous aide à choisir le bon équipement</p>
+        <h3>Personalized advice</h3>
+        <p>Our team helps you choose the right equipment</p>
       </div>
       
       <div class="service-item">
         <div class="service-icon">✓</div>
-        <h3>Garantie complète</h3>
-        <p>Garantie de 2 à 3 ans sur tous nos produits</p>
+        <h3>Complete warranty</h3>
+        <p>2 to 3 year warranty on all our products</p>
       </div>
     </div>
   </div>
@@ -146,12 +146,12 @@
 <section class="contact-cta">
   <div class="container">
     <div class="cta-content">
-      <span class="cta-badge">📞 Contactez-nous</span>
-      <h2>Besoin de conseils?</h2>
-      <p>Notre équipe d'experts est là pour vous aider à trouver la solution adaptée à vos besoins.</p>
+      <span class="cta-badge">📞 Contact us</span>
+      <h2>Need advice?</h2>
+      <p>Our team of experts is here to help you find the solution that fits your needs.</p>
       <div class="cta-actions">
         <a href="{{ "/contact/" | relURL }}" class="btn btn-primary btn-large">
-          <span>📧 Nous contacter</span>
+          <span>📧 Contact us</span>
         </a>
         <a href="tel:{{ .Site.Params.phone | replaceRE "\\D" "" }}" class="btn btn-outline btn-large">
           <span>📞 {{ .Site.Params.phone }}</span>

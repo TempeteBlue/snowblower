@@ -16,14 +16,14 @@
     <p class="page-description">{{ $data.description }}</p>
     {{ end }}
     {{ if $data.years }}
-    <p class="page-description">Années: {{ $data.years }}</p>
+    <p class="page-description">Years: {{ $data.years }}</p>
     {{ end }}
   </header>
 
-  <!-- Navigation vers les sous-dossiers -->
+  <!-- Navigation to subfolders -->
   {{ if .Sections }}
   <section class="manual-categories">
-    <h2>📁 Dossiers</h2>
+    <h2>📁 Folders</h2>
     <div class="category-grid">
       {{ range .Sections }}
       {{ $itemCount := len .Pages }}
@@ -33,14 +33,14 @@
       <a href="{{ .RelPermalink }}" class="category-card">
         <span class="category-icon">📂</span>
         <h3>{{ .Title }}</h3>
-        <p>{{ $itemCount }} élément(s)</p>
+        <p>{{ $itemCount }} item(s)</p>
       </a>
       {{ end }}
     </div>
   </section>
   {{ end }}
 
-  <!-- Contenu additionnel -->
+  <!-- Additional content -->
   {{ if .Content }}
   <div class="page-content">
     {{ .Content }}

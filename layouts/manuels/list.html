@@ -17,7 +17,7 @@
     <p class="page-description">{{ $data.description }}</p>
     {{ end }}
     {{ if $data.years }}
-    <p class="page-description">Années: {{ $data.years }}</p>
+    <p class="page-description">Years: {{ $data.years }}</p>
     {{ end }}
   </header>
   
@@ -94,7 +94,7 @@
       <!-- Specs -->
       {{ if $data.specs }}
       <div class="model-specs">
-        <h2>Caractéristiques</h2>
+        <h2>Specifications</h2>
         {{ range $key, $value := $data.specs }}
           {{ if reflect.IsMap $value }}
             <h3>{{ $key }}</h3>
@@ -117,7 +117,7 @@
       <!-- PDFs -->
       {{ if $pdfs }}
       <section class="manuals-section">
-        <h2>📖 Manuels disponibles</h2>
+        <h2>📖 Available manuals</h2>
         <div class="manuals-list">
           {{ range $pdfs }}
            <div class="manual-item">
@@ -125,8 +125,8 @@
                <h3>{{ .title }}</h3>
                {{ $pdfLang := .lang }}
                {{ if not $pdfLang }}
-                 {{ if in .title "-A " }}{{ $pdfLang = "Anglais" }}{{ end }}
-                 {{ if in .title "-F " }}{{ $pdfLang = "Français" }}{{ end }}
+                 {{ if in .title "-A " }}{{ $pdfLang = "English" }}{{ end }}
+                 {{ if in .title "-F " }}{{ $pdfLang = "French" }}{{ end }}
                {{ end }}
                {{ if $pdfLang }}<span class="pdf-lang">{{ $pdfLang }}</span>{{ end }}
               
@@ -135,14 +135,14 @@
               {{ if ge $partCount 3 }}
               <div class="pdf-meta">
                 {{ if eq $partCount 3 }}
-                <p><strong>Numéro de modèle:</strong> {{ index $parts 0 }}</p>
-                <p><strong>Numéro de série:</strong> {{ index $parts 2 }}</p>
+                <p><strong>Model number:</strong> {{ index $parts 0 }}</p>
+                <p><strong>Serial number:</strong> {{ index $parts 2 }}</p>
                 {{ else if eq $partCount 4 }}
-                <p><strong>Numéro de modèle:</strong> {{ index $parts 0 }} {{ index $parts 1 }}</p>
-                <p><strong>Numéro de série:</strong> {{ index $parts 3 }}</p>
+                <p><strong>Model number:</strong> {{ index $parts 0 }} {{ index $parts 1 }}</p>
+                <p><strong>Serial number:</strong> {{ index $parts 3 }}</p>
                 {{ else }}
-                <p><strong>Numéro de modèle:</strong> {{ index $parts 0 }} {{ index $parts 1 }}</p>
-                <p><strong>Numéro de série:</strong> {{ index $parts (sub $partCount 1) }}</p>
+                <p><strong>Model number:</strong> {{ index $parts 0 }} {{ index $parts 1 }}</p>
+                <p><strong>Serial number:</strong> {{ index $parts (sub $partCount 1) }}</p>
                 {{ end }}
               </div>
               {{ end }}
@@ -154,7 +154,7 @@
                 <line x1="12" y1="18" x2="12" y2="12"></line>
                 <line x1="9" y1="15" x2="15" y2="15"></line>
               </svg>
-              Télécharger
+              Download
             </a>
           </div>
           {{ end }}
@@ -165,10 +165,10 @@
   </div>
   {{ end }}
 
-  <!-- Navigation vers les sous-dossiers -->
+  <!-- Navigation to subfolders -->
   {{ if .Sections }}
   <section class="manual-categories">
-    <h2>📁 Dossiers</h2>
+    <h2>📁 Folders</h2>
     <div class="category-grid">
       {{ range .Sections }}
       {{ $itemCount := len .Pages }}
@@ -178,7 +178,7 @@
       <a href="{{ .RelPermalink }}" class="category-card">
         <span class="category-icon">📂</span>
         <h3>{{ .Title }}</h3>
-        <p>{{ $itemCount }} élément(s)</p>
+        <p>{{ $itemCount }} item(s)</p>
       </a>
       {{ end }}
     </div>

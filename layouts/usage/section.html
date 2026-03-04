@@ -3,7 +3,7 @@
   "title" (.Params.title | default .Title)
   "description" (.Params.description | default "")
 ) }}
-{{ $is_root := eq .RelPermalink "/usage/" }}
+{{ $is_root := eq .RelPermalink "/used/" }}
 <div class="container page-container">
   <header class="page-header">
     <h1 class="page-title">{{ $data.title }}</h1>
@@ -13,7 +13,7 @@
   </header>
 
   {{ if $is_root }}
-  {{/* Page racine /usage/ - Afficher les catégories */}}
+  {{/* Root page /used/ - Show categories */}}
   {{ if .Sections }}
   <section class="categories-grid-section">
     <div class="categories-grid">
@@ -25,7 +25,7 @@
           {{ if .Params.description }}
           <p class="category-description">{{ .Params.description }}</p>
           {{ end }}
-          <span class="category-count">{{ len .Pages }} équipement(s)</span>
+          <span class="category-count">{{ len .Pages }} equipment(s)</span>
         </a>
       </article>
       {{ end }}
@@ -33,11 +33,11 @@
   </section>
   {{ else }}
   <div class="empty-state">
-    <p>Aucune catégorie disponible pour le moment.</p>
+    <p>No categories available at the moment.</p>
   </div>
   {{ end }}
   {{ else }}
-  {{/* Sous-catégorie - Afficher les équipements usagés */}}
+  {{/* Sub-category - Show used equipment */}}
   {{ if .Pages }}
   <section class="products-grid-section">
     <div class="products-grid">
@@ -82,7 +82,7 @@
           {{ end }}
           
           <a href="{{ .RelPermalink }}" class="btn btn-secondary">
-            Voir les détails
+            View details
           </a>
         </div>
       </article>
@@ -91,15 +91,15 @@
   </section>
   {{ else }}
   <div class="empty-state">
-    <p>Aucun équipement usagé disponible dans cette catégorie pour le moment.</p>
-    <p>Contactez-nous pour connaître les prochaines arrivées.</p>
-    <a href="{{ "/contact/" | relURL }}" class="btn btn-primary">Nous contacter</a>
+    <p>No used equipment available in this category at the moment.</p>
+    <p>Contact us to learn about upcoming arrivals.</p>
+    <a href="{{ "/contact/" | relURL }}" class="btn btn-primary">Contact us</a>
   </div>
   {{ end }}
   
-  <!-- Lien retour -->
+  <!-- Back link -->
   <div class="back-link">
-    <a href="{{ "/usage/" | relURL }}" class="btn btn-outline">← Retour aux catégories</a>
+    <a href="{{ "/used/" | relURL }}" class="btn btn-outline">← Back to categories</a>
   </div>
   {{ end }}
 </div>

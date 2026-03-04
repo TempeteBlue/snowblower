@@ -1,0 +1,51 @@
+# Hugo
+/public/
+/resources/_gen/
+assets/jsconfig.json
+hugo_stats.json
+hugo.exe
+hugo.darwin
+hugo.linux
+
+# Generated content (created during build)
+content/manuels/*/*/_index.md
+content/manuels/*/_index.md
+content/produits/*/index.md
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# Build outputs
+/dist/
+/build/
+
+# Node modules (si utilisé)
+node_modules/
+
+# Large files (à gérer via Git LFS si nécessaire)
+# *.pdf
+# *.zip
+# *.psd

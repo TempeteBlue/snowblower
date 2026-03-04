@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.Language.Lang | default `fr` }}">
+<html lang="{{ .Site.Language.Lang | default `en` }}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +7,8 @@
   
   {{ hugo.Generator }}
   
-  {{ $description := .Description | default .Params.description | default .Site.Params.description | default "Spécialiste en équipements de déneigement - Souffleuses, pièces et manuels techniques" }}
-  {{ $keywords := .Params.keywords | default "souffleuse à neige, souffleur, équipement hiver, concessionnaire, pièces, manuels techniques, déneigement, souffleuse professionnelle" }}
+  {{ $description := .Description | default .Params.description | default .Site.Params.description | default "Snow removal equipment specialist - Snow blowers, parts and technical manuals" }}
+  {{ $keywords := .Params.keywords | default "snow blower, snow removal equipment, winter equipment, dealer, parts, technical manuals, snow removal, professional snow blower" }}
   {{ $title := .Title | default .Site.Title }}
   {{ $image := .Params.image | default .Site.Params.og_image | default ("/images/og-default.jpg" | absURL) }}
   
@@ -27,7 +27,7 @@
   <meta property="og:image" content="{{ $image | absURL }}">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:locale" content="fr_FR">
+  <meta property="og:locale" content="en_US">
   
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
@@ -51,7 +51,7 @@
       "@type": "ContactPoint",
       "contactType": "customer service",
       "areaServed": "CA",
-      "availableLanguage": ["French"]
+      "availableLanguage": ["English", "French"]
     }{{ if .Site.Params.social }},
     "sameAs": [
       {{ $first := true }}{{ range $key, $value := .Site.Params.social }}{{ if not $first }}, {{ end }}{{ $first = false }}"{{ $value }}"{{ end }}
@@ -102,7 +102,7 @@
       {
         "@type": "ListItem",
         "position": 1,
-        "name": "Accueil",
+        "name": "Home",
         "item": "{{ .Site.BaseURL }}"
       }{{ if .Parent }},{
         "@type": "ListItem",

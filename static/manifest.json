@@ -1,14 +1,14 @@
 {
-  "name": "Tempête - Spécialiste en équipements de déneigement",
+  "name": "Tempête - Snow removal equipment specialist",
   "short_name": "Tempête",
-  "description": "Souffleuses à neige, pièces et manuels techniques depuis 1985",
+  "description": "Snow blowers, parts and technical manuals since 1985",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#1a237e",
   "orientation": "portrait-primary",
   "scope": "/",
-  "lang": "fr",
+  "lang": "en",
   "icons": [
     {
       "src": "/images/icon-72x72.png",

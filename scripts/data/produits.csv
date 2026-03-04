@@ -1,0 +1,10 @@
+sku,name,category,price,price_note,description,image,manual_ref,in_stock,featured
+SA92B,Souffleuse SA92B,Souffleuse,3499.99,Prix suggéré,Souffleuse à neige professionnelle 92 pouces avec attache rapide. Parfaite pour les tracteurs de grande taille.,images/produits/sa92b.jpg,manuels/souffleuses/sa92b,true,true
+SA98B,Souffleuse SA98B,Souffleuse,3899.99,Prix suggéré,Souffleuse 98 pouces haute performance pour usage commercial intensif.,images/produits/sa98b.jpg,manuels/souffleuses/sa92b,true,false
+B84A,Balais rotatif B84A,Balais,2899.99,Prix suggéré,Balais rotatif 84 pouces avec système hydraulique. Idéal pour le déneigement rapide.,images/produits/b84a.jpg,manuels/balais/b84a-b94a,true,true
+B94A,Balais rotatif B94A,Balais,3299.99,Prix suggéré,Balais rotatif 94 pouces pour surfaces commerciales.,images/produits/b94a.jpg,manuels/balais/b84a-b94a,true,false
+H64A,Souffleuse hydraulique H64A,Souffleuse,4299.99,Prix suggéré,Souffleuse hydraulique 64 pouces Ber-Vac. Performance exceptionnelle.,images/produits/h64a.jpg,manuels/souffleuses/h64a-h76a-h84a,true,true
+H76A,Souffleuse hydraulique H76A,Souffleuse,4599.99,Prix suggéré,Souffleuse hydraulique 76 pouces pour usage intensif.,images/produits/h76a.jpg,manuels/souffleuses/h64a-h76a-h84a,true,false
+SA88TRCB,"Souffleuse TRCB 88""",Souffleuse,3199.99,Prix suggéré,Souffleuse avec système TRCB 88 pouces. Design amélioré 2014+.,images/produits/sa88trcb.jpg,manuels/souffleuses/sa88trcb,true,true
+SA54,Souffleuse SA54,Souffleuse,2499.99,Prix suggéré,Souffleuse compacte 54 pouces pour petits tracteurs.,images/produits/sa54.jpg,manuels/souffleuses/sa54-sa64,true,false
+DB6000,Souffleuse à débris DB6000,Débris,5299.99,Prix suggéré,Souffleuse à débris professionnelle pour nettoyage automnal.,images/produits/db6000.jpg,manuels/debris/db6000,true,true

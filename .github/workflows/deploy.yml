@@ -1,0 +1,311 @@
+name: Deploy Hugo Site to GitHub Pages
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  # Allows manual triggering
+  workflow_dispatch:
+
+# Permissions required for GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Concurrency to prevent simultaneous deployments
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+# Environment variables
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  # Build job
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils
+
+      - name: Clean previous build
+        run: |
+          echo "🧹 Cleaning previous build..."
+          # Delete public directory
+          rm -rf public 2>/dev/null || true
+          # Delete resources directory
+          rm -rf resources 2>/dev/null || true
+          # Delete .hugo_build.lock
+          rm -f .hugo_build.lock 2>/dev/null || true
+
+      - name: Copy PDFs to static folder
+        run: |
+          echo "📄 Syncing PDFs from content/manuels to static/pdf/manuels..."
+          # Create static/pdf/manuels directory
+          mkdir -p static/pdf/manuels
+          
+          # Clean up orphaned PDFs in static (remove PDFs no longer in content)
+          echo "🧹 Cleaning up orphaned PDFs..."
+          find static/pdf/manuels -name "*.pdf" -type f | while read static_pdf; do
+            content_pdf="content${static_pdf#static/pdf}"
+            if [ ! -f "$content_pdf" ]; then
+              echo "Removing orphaned PDF: $static_pdf (no longer in content)"
+              rm -f "$static_pdf"
+            fi
+          done
+          
+          # Copy all PDFs from content/manuels to static/pdf/manuels
+          find content/manuels -name "*.pdf" -type f | while read pdf_file; do
+            static_path="static/pdf/${pdf_file#content/}"
+            mkdir -p "$(dirname "$static_path")"
+            cp "$pdf_file" "$static_path"
+            echo "Copied PDF: $pdf_file -> $static_path"
+          done
+          echo "✅ PDFs synced successfully"
+
+      - name: Convert PDFs to PNG
+        run: |
+          echo "🔍 Checking for PNG files in static/images/manuels..."
+          echo "Current PNG count: $(find static/images/manuels -name '*.png' 2>/dev/null | wc -l)"
+          
+          # Create static/images/manuels directory
+          mkdir -p static/images/manuels
+          
+          # Clean up orphaned PNGs (remove PNGs without corresponding PDFs)
+          echo "🧹 Cleaning up orphaned PNGs..."
+          find static/images/manuels -name "*.png" -type f | while read png_file; do
+            # Get the corresponding PDF path - handle spaces in names
+            rel_path="${png_file#static/images/}"
+            pdf_path="content/${rel_path%.png}.pdf"
+            
+            # Check if PDF exists in content
+            if [ ! -f "$pdf_path" ]; then
+              echo "Removing orphaned PNG: $png_file (no corresponding PDF at $pdf_path)"
+              rm -f "$png_file"
+            fi
+          done
+          
+          # Count before conversion
+          pdf_count=$(find content/manuels -name "*.pdf" -type f | wc -l)
+          existing_png_count=$(find static/images/manuels -name "*.png" -type f | wc -l)
+          echo "📊 Found $pdf_count PDFs and $existing_png_count existing PNGs"
+          
+          # Process PDFs in content/manuels and convert only if PNG doesn't exist
+          echo "📄 Converting new PDFs only..."
+          converted_count=0
+          skipped_count=0
+          
+          find content/manuels -name "*.pdf" -type f | while read pdf_file; do
+            pdf_dir=$(dirname "$pdf_file")
+            pdf_name=$(basename "$pdf_file" .pdf)
+            static_dir="static/images/${pdf_dir#content/}"
+            png_file="$static_dir/$pdf_name.png"
+            
+            # Create directory
+            mkdir -p "$static_dir"
+            
+            # Skip if PNG already exists (check both in static/images and in repo)
+            if [ -f "$png_file" ]; then
+              skipped_count=$((skipped_count + 1))
+              continue
+            fi
+            
+            # Also check if PNG exists in content/manuels (source location)
+            content_png="$pdf_dir/$pdf_name.png"
+            if [ -f "$content_png" ]; then
+              echo "Found PNG in content, copying: $content_png -> $png_file"
+              cp "$content_png" "$png_file"
+              skipped_count=$((skipped_count + 1))
+              continue
+            fi
+            
+            # Convert PDF to PNG
+            converted_count=$((converted_count + 1))
+            if pdftoppm -png -f 1 -l 1 -singlefile -r 150 "$pdf_file" "$static_dir/$pdf_name" 2>/dev/null; then
+              echo "✅ Converted: $pdf_file"
+            else
+              echo "❌ Error converting: $pdf_file"
+            fi
+          done
+          
+          echo "📊 Results: $converted_count converted, $skipped_count skipped"
+          
+          # Copy any existing PNGs from content/manuels to static/images/manuels
+          echo "📋 Copying existing PNGs from content to static..."
+          find content/manuels -name "*.png" -type f | while read png_file; do
+            static_path="static/images/${png_file#content/}"
+            if [ ! -f "$static_path" ]; then
+              mkdir -p "$(dirname "$static_path")"
+              cp "$png_file" "$static_path"
+              echo "Copied: $png_file -> $static_path"
+            fi
+          done
+
+      - name: Commit PNG files
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "feat: Add manuel page pictures from PDF first pages"
+          file_pattern: "static/images/manuels/**/*.png content/manuels/**/*.png"
+          push_options: '--force-with-lease'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: '0.124.1'
+          extended: true  # Required for SCSS/Sass
+
+      - name: Setup Node.js (for assets)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Cache Node modules
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install Node dependencies (if package.json exists)
+        run: |
+          if [ -f package.json ]; then
+            if [ -f package-lock.json ]; then
+              npm ci
+            else
+              npm install
+            fi
+          fi
+
+      - name: Clean generated content
+        run: |
+          echo "🧹 Cleaning generated content..."
+          # Delete ALL generated markdown files in content/ (except _index.md and keep PNGs)
+          find content/ -name "*.md" -type f ! -name "_index.md" -delete 2>/dev/null || true
+          echo "✅ Markdown files cleanup completed"
+
+      - name: Clean static folders
+        run: |
+          echo "🧹 Cleaning obsolete static folders..."
+          # Sync static/images/produits with content/produits
+          if [ -d "content/produits" ] && [ -d "static/images/produits" ]; then
+            for category_dir in static/images/produits/*/; do
+              category=$(basename "$category_dir")
+              if [ ! -d "content/produits/$category" ]; then
+                echo "  🗑️ Deleting: static/images/produits/$category"
+                rm -rf "$category_dir"
+              fi
+            done
+          fi
+          # Sync static/pdf/produits with content/produits
+          if [ -d "content/produits" ] && [ -d "static/pdf/produits" ]; then
+            for category_dir in static/pdf/produits/*/; do
+              category=$(basename "$category_dir")
+              if [ ! -d "content/produits/$category" ]; then
+                echo "  🗑️ Deleting: static/pdf/produits/$category"
+                rm -rf "$category_dir"
+              fi
+            done
+          fi
+          # Sync static/images/usages with content/usages
+          if [ -d "content/usages" ] && [ -d "static/images/usages" ]; then
+            for category_dir in static/images/usages/*/; do
+              category=$(basename "$category_dir")
+              if [ ! -d "content/usages/$category" ]; then
+                echo "  🗑️ Deleting: static/images/usages/$category"
+                rm -rf "$category_dir"
+              fi
+            done
+          fi
+          # Sync static/pdf/usages with content/usages
+          if [ -d "content/usages" ] && [ -d "static/pdf/usages" ]; then
+            for category_dir in static/pdf/usages/*/; do
+              category=$(basename "$category_dir")
+              if [ ! -d "content/usages/$category" ]; then
+                echo "  🗑️ Deleting: static/pdf/usages/$category"
+                rm -rf "$category_dir"
+              fi
+            done
+          fi
+          echo "✅ Static folders cleanup completed"
+
+      - name: Generate product pages from data
+        run: |
+          echo "🔄 Auto-generating product pages..."
+          # Script to generate product Markdown pages from CSV/YAML
+          python3 scripts/generate-products.py || echo "No generation script"
+
+      - name: Process simple manual folders
+        run: |
+          echo "📁 Processing simple manual folders..."
+          python3 scripts/process-simple-manuals.py || echo "No simple folders to process"
+
+      - name: Process simple product folders
+        run: |
+          echo "📦 Processing simple product folders..."
+          python3 scripts/process-simple-products.py || echo "No simple folders to process"
+
+      - name: Process simple usage folders
+        run: |
+          echo "🔧 Processing simple used equipment folders..."
+          python3 scripts/process-simple-usages.py || echo "No simple folders to process"
+
+      - name: Generate manual indexes from PDF folders
+        run: |
+          echo "📄 Generating indexes for manual folders..."
+          python3 scripts/generate-manual-indexes.py || echo "No folders to index"
+
+      - name: Generate product indexes from folders
+        run: |
+          echo "📦 Generating indexes for product folders..."
+          python3 scripts/generate-product-indexes.py || echo "No folders to index"
+
+      - name: Generate usage indexes from folders
+        run: |
+          echo "🔧 Generating indexes for used equipment folders..."
+          python3 scripts/generate-usage-indexes.py || echo "No folders to index"
+
+      - name: Build Hugo site
+        run: hugo --gc --minify --baseURL "https://snow-blower.ca/"
+        env:
+          HUGO_ENVIRONMENT: production
+          HUGO_ENV: production
+
+      - name: Generate search index
+        run: |
+          echo "🔍 Generating search index..."
+          # Create a JSON index for search
+          python3 scripts/generate-search-index.py || echo "No search script"
+
+      - name: Upload build artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
+
+  # Deploy job
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

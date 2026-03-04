@@ -5,7 +5,7 @@
   "manuals" (.Params.manuals | default slice)
   "images" (.Params.images | default slice)
 ) }}
-{{ $is_root := eq .RelPermalink "/manuels/" }}
+{{ $is_root := eq .RelPermalink "/manuals/" }}
 {{ $images := $data.images }}
 {{ $pdfs := $data.manuals }}
 <div class="container page-container">
@@ -17,10 +17,10 @@
   </header>
 
   {{ if $is_root }}
-  {{/* Page racine /manuels/ - Afficher les catégories */}}
+  {{/* Root page /manuals/ - Show categories */}}
   {{ if .Sections }}
   <section class="manual-categories">
-    <h2>Catégories de manuels</h2>
+    <h2>Manual categories</h2>
     <div class="category-grid">
       {{ range .Sections }}
       {{ $modelCount := len .Pages }}
@@ -31,7 +31,7 @@
           {{ if .Params.description }}
           <p class="category-description">{{ .Params.description }}</p>
           {{ end }}
-          <p class="category-count">{{ $modelCount }} modèle(s)</p>
+          <p class="category-count">{{ $modelCount }} model(s)</p>
         </a>
       </article>
       {{ end }}
@@ -39,14 +39,14 @@
   </section>
   {{ else }}
   <div class="empty-state">
-    <p>Aucune catégorie disponible pour le moment.</p>
+    <p>No categories available at the moment.</p>
   </div>
   {{ end }}
   
   {{ else if .Sections }}
-  {{/* Niveau catégorie - Afficher les modèles (comme /manuels/debris/) */}}
+  {{/* Category level - Show models (like /manuals/debris/) */}}
   <section class="manual-categories">
-    <h2>Modèles disponibles</h2>
+    <h2>Available models</h2>
     <div class="category-grid">
       {{ range .Sections }}
       {{ $itemCount := len .Pages }}
@@ -60,20 +60,20 @@
           {{ if .Params.description }}
           <p class="category-description">{{ .Params.description }}</p>
           {{ end }}
-          <p class="category-count">{{ $itemCount }} élément(s)</p>
+          <p class="category-count">{{ $itemCount }} item(s)</p>
         </a>
       </article>
       {{ end }}
     </div>
   </section>
   
-  <!-- Lien retour -->
+  <!-- Back link -->
   <div class="back-link">
-    <a href="{{ "/manuels/" | relURL }}" class="btn btn-outline">← Retour aux catégories</a>
+    <a href="{{ "/manuals/" | relURL }}" class="btn btn-outline">← Back to categories</a>
   </div>
   
   {{ else if $pdfs }}
-  {{/* Page de modèle avec manuels PDF - Utiliser le layout existant de single.html */}}
+  {{/* Model page with PDF manuals - Use existing single.html layout */}}
   <div class="manual-layout">
     {{ if $images }}
     <div class="manual-image-column">
@@ -143,7 +143,7 @@
       
       {{ if $pdfs }}
       <section class="manuals-section">
-        <h2>📖 Manuels disponibles</h2>
+        <h2>📖 Available manuals</h2>
         <div class="manuals-list">
           {{ range $pdfs }}
            <div class="manual-item">
@@ -151,8 +151,8 @@
                <h3>{{ .title }}</h3>
                {{ $pdfLang := .lang }}
                {{ if not $pdfLang }}
-                 {{ if in .title "-A " }}{{ $pdfLang = "Anglais" }}{{ end }}
-                 {{ if in .title "-F " }}{{ $pdfLang = "Français" }}{{ end }}
+                 {{ if in .title "-A " }}{{ $pdfLang = "English" }}{{ end }}
+                 {{ if in .title "-F " }}{{ $pdfLang = "French" }}{{ end }}
                {{ end }}
                {{ if $pdfLang }}<span class="pdf-lang">{{ $pdfLang }}</span>{{ end }}
               
@@ -161,14 +161,14 @@
               {{ if ge $partCount 3 }}
               <div class="pdf-meta">
                 {{ if eq $partCount 3 }}
-                <p><strong>Numéro de modèle:</strong> {{ index $parts 0 }}</p>
-                <p><strong>Numéro de série:</strong> {{ index $parts 2 }}</p>
+                <p><strong>Model number:</strong> {{ index $parts 0 }}</p>
+                <p><strong>Serial number:</strong> {{ index $parts 2 }}</p>
                 {{ else if eq $partCount 4 }}
-                <p><strong>Numéro de modèle:</strong> {{ index $parts 0 }} {{ index $parts 1 }}</p>
-                <p><strong>Numéro de série:</strong> {{ index $parts 3 }}</p>
+                <p><strong>Model number:</strong> {{ index $parts 0 }} {{ index $parts 1 }}</p>
+                <p><strong>Serial number:</strong> {{ index $parts 3 }}</p>
                 {{ else }}
-                <p><strong>Numéro de modèle:</strong> {{ index $parts 0 }} {{ index $parts 1 }}</p>
-                <p><strong>Numéro de série:</strong> {{ index $parts (sub $partCount 1) }}</p>
+                <p><strong>Model number:</strong> {{ index $parts 0 }} {{ index $parts 1 }}</p>
+                <p><strong>Serial number:</strong> {{ index $parts (sub $partCount 1) }}</p>
                 {{ end }}
               </div>
               {{ end }}
@@ -180,7 +180,7 @@
                 <line x1="12" y1="18" x2="12" y2="12"></line>
                 <line x1="9" y1="15" x2="15" y2="15"></line>
               </svg>
-              Télécharger
+              Download
             </a>
           </div>
           {{ end }}
@@ -190,13 +190,13 @@
     </div>
   </div>
   
-  <!-- Lien retour -->
+  <!-- Back link -->
   <div class="back-link">
-    <a href="{{ .Parent.RelPermalink }}" class="btn btn-outline">← Retour aux modèles</a>
+    <a href="{{ .Parent.RelPermalink }}" class="btn btn-outline">← Back to models</a>
   </div>
   {{ else }}
   <div class="empty-state">
-    <p>Aucun manuel disponible pour le moment.</p>
+    <p>No manuals available at the moment.</p>
   </div>
   {{ end }}
 </div>

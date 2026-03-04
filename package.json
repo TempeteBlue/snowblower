@@ -1,0 +1,19 @@
+{
+  "name": "concessionnaire-souffleuses",
+  "version": "1.0.0",
+  "description": "Site web statique pour concessionnaire de souffleuses",
+  "scripts": {
+    "dev": "hugo server -D",
+    "build": "hugo --gc --minify",
+    "clean": "rm -rf public/ resources/"
+  },
+  "keywords": [
+    "hugo",
+    "static-site",
+    "concessionnaire",
+    "souffleuse"
+  ],
+  "author": "Votre Nom",
+  "license": "MIT",
+  "devDependencies": {}
+}

@@ -1,56 +1,56 @@
-baseURL = 'https://www.souffleur.ca/'
-languageCode = 'fr-CA'
-title = 'Tempête est le distributeur autorisé des pièces et produits Radtech ( www.radtech.ca), nous sommes fiers de vendre d’excellents produits fabriqués dans la région de Chaudière-Appalaches, et cela à d’excellent prix.'
+baseURL = 'https://snow-blower.ca/'
+languageCode = 'en-CA'
+title = 'Tempête is the authorized distributor of Radtech parts and products (www.radtech.ca). We are proud to sell excellent products manufactured in the Chaudière-Appalaches region, and at excellent prices.'
 
 # No theme - using custom layouts
 
-# Permalinks canoniques avec catégories
+# Canonical permalinks with categories
 [permalinks]
-  manuels = '/manuels/:sections/:slug/'
-  produits = '/produits/:sections/:slug/'
-  usage = '/usage/:sections/:slug/'
+  manuels = '/manuals/:sections/:slug/'
+  produits = '/products/:sections/:slug/'
+  usage = '/used/:sections/:slug/'
 
-# Taxonomies pour organiser les manuels
+# Taxonomies to organize manuals
 [taxonomies]
   categorie = 'categories'
-  marque = 'marques'
+  marque = 'brands'
   type = 'types'
 
-# Paramètres du site
+# Site parameters
 [params]
   author = "Tempête"
-  description = "Tempête est le distributeur autorisé des pièces et produits Radtech ( www.radtech.ca), nous sommes fiers de vendre d’excellents produits fabriqués dans la région de Chaudière-Appalaches, et cela à d’excellent prix."
+  description = "Tempête is the authorized distributor of Radtech parts and products (www.radtech.ca). We are proud to sell excellent products manufactured in the Chaudière-Appalaches region, and at excellent prices."
   phone = "(418) 478-2118"
   email = "david@tempete.ca"
   address = "Thetford Mines"
-  hours = "Lun-Ven: 8h-17h"
+  hours = "Mon-Fri: 8am-5pm"
   
-  # Configuration recherche
+  # Search configuration
   [params.search]
     enabled = true
     
-  # Réseaux sociaux
+  # Social media
   [params.social]
     facebook = "https://www.facebook.com/tempete.ca"
 
-# Menu principal
+# Main menu
 [menu]
   [[menu.main]]
     identifier = "produits"
-    name = "Produits"
-    url = "/produits/"
+    name = "Products"
+    url = "/products/"
     weight = 10
     
   [[menu.main]]
     identifier = "usage"
-    name = "Usagés"
-    url = "/usage/"
+    name = "Used Equipment"
+    url = "/used/"
     weight = 20
 
   [[menu.main]]
     identifier = "manuels"
-    name = "Manuels"
-    url = "/manuels/"
+    name = "Manuals"
+    url = "/manuals/"
     weight = 30
 
   [[menu.main]]
@@ -59,17 +59,17 @@ title = 'Tempête est le distributeur autorisé des pièces et produits Radtech 
     url = "/contact/"
     weight = 40
 
-# Configuration pour GitHub Pages
+# Configuration for GitHub Pages
 [imaging]
   quality = 85
   resampleFilter = "lanczos"
 
-# Sécurité
+# Security
 [security]
   [security.funcs]
     getenv = ['^HUGO_', '^CI$', '^GITHUB_']
 
-# Multilingue (optionnel)
+# Multilingual (optional)
 [languages]
   [languages.fr]
     weight = 1

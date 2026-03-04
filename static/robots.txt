@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://souffleur.ca/sitemap.xml
+Sitemap: https://snow-blower.ca/sitemap.xml
 
 # Optimize crawl budget
 Disallow: /admin/

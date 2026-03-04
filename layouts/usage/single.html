@@ -17,7 +17,7 @@
 <div class="container page-container">
   <article class="product-page">
     <div class="product-layout">
-      <!-- Colonne images -->
+      <!-- Image column -->
       <div class="product-gallery">
         {{ if $images }}
           {{ $imageCount := len $images }}
@@ -50,7 +50,7 @@
         {{ end }}
       </div>
       
-      <!-- Colonne informations -->
+      <!-- Information column -->
       <div class="product-details">
         <header class="product-header">
           <h1 class="product-title">{{ $data.title }}</h1>
@@ -58,7 +58,7 @@
           <p class="product-subtitle">{{ $data.description }}</p>
           {{ end }}
           
-          <!-- Prix -->
+          <!-- Price -->
           {{ if $data.price }}
           <div class="price-block">
             <span class="price">{{ $data.price }}</span>
@@ -68,33 +68,33 @@
           </div>
           {{ end }}
           
-          <!-- Informations spécifiques aux équipements usagés -->
+          <!-- Used equipment specific information -->
           <div class="product-meta">
             {{ if $data.sku }}
-            <span class="meta-item"><strong>Référence:</strong> {{ $data.sku }}</span>
+            <span class="meta-item"><strong>Reference:</strong> {{ $data.sku }}</span>
             {{ end }}
             
             {{ if $data.condition }}
             <span class="meta-item">
-              <strong>État:</strong> 
+              <strong>Condition:</strong> 
               <span class="condition-badge condition-{{ $data.condition | lower | replaceRE "\\s+" "-" }}">{{ $data.condition }}</span>
             </span>
             {{ end }}
             
             {{ if $data.year }}
-            <span class="meta-item"><strong>Année:</strong> {{ $data.year }}</span>
+            <span class="meta-item"><strong>Year:</strong> {{ $data.year }}</span>
             {{ end }}
             
             {{ if $data.hours }}
-            <span class="meta-item"><strong>Heures:</strong> {{ $data.hours }}h</span>
+            <span class="meta-item"><strong>Hours:</strong> {{ $data.hours }}h</span>
             {{ end }}
           </div>
         </header>
         
-        <!-- Spécifications -->
+        <!-- Specifications -->
         {{ if $data.specs }}
         <section class="product-specs-section">
-          <h2>Caractéristiques techniques</h2>
+          <h2>Technical specifications</h2>
           <table class="specs-table">
             <tbody>
               {{ range $key, $value := $data.specs }}
@@ -112,7 +112,7 @@
           {{ .Content }}
         </div>
         
-        <!-- Documents / Manuels -->
+        <!-- Documents / Manuals -->
         {{ if $documents }}
         <section class="product-documents">
           <h2>📖 Documentation</h2>
@@ -124,7 +124,7 @@
               </div>
               <div class="document-actions">
                 <a href="{{ .file | absURL }}" class="btn btn-secondary" target="_blank" rel="noopener">
-                  Télécharger PDF
+                  Download PDF
                 </a>
               </div>
             </div>
@@ -135,10 +135,10 @@
         
         <!-- Contact -->
         <div class="product-cta">
-          <h2>Intéressé par cet équipement usagé?</h2>
-          <p>Contactez-nous pour connaître la disponibilité et les options de livraison.</p>
-          <a href="{{ "/contact/" | relURL }}?produit={{ $data.title | urlize }}" class="btn btn-primary">
-            Demander plus d'informations
+          <h2>Interested in this used equipment?</h2>
+          <p>Contact us to check availability and delivery options.</p>
+          <a href="{{ "/contact/" | relURL }}?product={{ $data.title | urlize }}" class="btn btn-primary">
+            Request more information
           </a>
         </div>
       </div>
@@ -149,7 +149,7 @@
 
 {{ define "scripts" }}
 <script>
-// Gallerie d'images
+// Image gallery
 document.querySelectorAll('.thumbnail').forEach(thumb => {
   thumb.addEventListener('click', function() {
     const mainImage = document.getElementById('main-product-image');

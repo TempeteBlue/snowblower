@@ -9,33 +9,33 @@
     
     <div class="contact-grid">
       <div class="contact-info">
-        <h2>Nos coordonnées</h2>
+        <h2>Our contact information</h2>
         <ul class="contact-list">
           <li>
             <span class="contact-icon">📍</span>
             <div>
-              <h3>Adresse</h3>
+              <h3>Address</h3>
               <p>{{ $contact.contact.address }}</p>
             </div>
           </li>
           <li>
             <span class="contact-icon">📞</span>
             <div>
-              <h3>Téléphone</h3>
+              <h3>Phone</h3>
               <p><a href="tel:{{ $contact.contact.phone | replaceRE "\\D" "" }}">{{ $contact.contact.phone }}</a></p>
             </div>
           </li>
           <li>
             <span class="contact-icon">✉️</span>
             <div>
-              <h3>Courriel</h3>
+              <h3>Email</h3>
               <p><a href="mailto:{{ $contact.contact.email }}">{{ $contact.contact.email }}</a></p>
             </div>
           </li>
           <li>
             <span class="contact-icon">🕐</span>
             <div>
-              <h3>Horaires</h3>
+              <h3>Hours</h3>
               <p>{{ $contact.contact.hours }}</p>
             </div>
           </li>
@@ -43,13 +43,13 @@
       </div>
       
       <div class="contact-form-section">
-        <h2>Envoyez-nous un message</h2>
+        <h2>Send us a message</h2>
         <p>{{ $contact.contact.info_message }}</p>
         
         <div class="contact-email-box">
-          <h3>📧 Nous contacter par email</h3>
-          <p>Envoyez-nous directement un email à <a href="mailto:{{ $contact.contact.email }}">{{ $contact.contact.email }}</a></p>
-          <p><strong>N'oubliez pas de préciser :</strong></p>
+          <h3>📧 Contact us by email</h3>
+          <p>Send us an email directly at <a href="mailto:{{ $contact.contact.email }}">{{ $contact.contact.email }}</a></p>
+          <p><strong>Don't forget to include:</strong></p>
           <ul>
             {{ range $contact.contact.form_instructions }}
             <li>{{ . }}</li>
@@ -61,7 +61,7 @@
     
     {{ if $contact.contact.map_url }}
     <div class="map-container">
-      <h2>Nous trouver</h2>
+      <h2>Find us</h2>
       <iframe 
         src="{{ $contact.contact.map_url }}"
         width="100%" 

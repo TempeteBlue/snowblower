@@ -11,10 +11,10 @@
       {{ if or .Params.date .Params.author }}
       <div class="page-meta">
         {{ if .Params.date }}
-        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 janvier 2006" }}</time>
+        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
         {{ end }}
         {{ if .Params.author }}
-        <span class="author">par {{ .Params.author }}</span>
+        <span class="author">by {{ .Params.author }}</span>
         {{ end }}
       </div>
       {{ end }}
@@ -33,7 +33,7 @@
     <!-- Specifications (if any) -->
     {{ if .Params.specs }}
     <div class="specs-section">
-      <h2>Spécifications techniques</h2>
+      <h2>Technical specifications</h2>
       <dl class="specs-list">
         {{ range $key, $value := .Params.specs }}
         <dt>{{ $key }}</dt>
@@ -51,7 +51,7 @@
     <!-- Gallery (if any) -->
     {{ if .Params.gallery }}
     <div class="gallery-section">
-      <h2>Galerie photos</h2>
+      <h2>Photo gallery</h2>
       <div class="gallery-grid">
         {{ range .Params.gallery }}
         <figure class="gallery-item">
@@ -68,9 +68,9 @@
     <!-- Related manuals (if product) -->
     {{ if and (eq .Section "produits") .Params.manual_ref }}
     <div class="related-manual">
-      <h2>📖 Manuel de pièces</h2>
+      <h2>📖 Parts manual</h2>
       <a href="{{ .Params.manual_ref | relURL }}" class="btn btn-secondary">
-        Consulter le manuel
+        View manual
       </a>
     </div>
     {{ end }}

@@ -1,8 +1,8 @@
 /**
- * Scripts principaux du site
+ * Main site scripts
  */
 
-// Menu mobile
+// Mobile menu
 document.addEventListener('DOMContentLoaded', function() {
   const navToggle = document.querySelector('.nav-toggle');
   const mainNav = document.querySelector('.main-nav');
@@ -15,18 +15,18 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
-  // Recherche
+  // Search
   initSearch();
 });
 
-// Fonction de recherche
+// Search function
 function initSearch() {
   const searchInput = document.getElementById('site-search');
   const searchBtn = document.getElementById('search-btn');
   
   if (!searchInput) return;
   
-  // Charge l'index de recherche
+  // Load search index
   const searchIndexPath = '/search-index.json';
   
   fetch(searchIndexPath)
@@ -38,19 +38,19 @@ function initSearch() {
     })
     .then(data => {
       window.searchIndex = data;
-      console.log('Index de recherche chargé:', data.length, 'pages');
+      console.log('Search index loaded:', data.length, 'pages');
     })
     .catch(err => {
-      console.log('Index de recherche non disponible:', err);
+      console.log('Search index not available:', err);
       window.searchIndex = [];
     });
   
-  // Gestion de la recherche
+  // Search handling
   function performSearch(query) {
     if (!query) return;
     
     if (!window.searchIndex) {
-      alert('Index de recherche en cours de chargement, veuillez patienter quelques secondes et réessayer.');
+      alert('Search index is loading, please wait a few seconds and try again.');
       return;
     }
     
@@ -77,27 +77,27 @@ function initSearch() {
   }
 }
 
-// Affiche les résultats de recherche
+// Display search results
 function displaySearchResults(results) {
-  // Supprime les résultats précédents
+  // Remove previous results
   const existingResults = document.querySelector('.search-results');
   if (existingResults) {
     existingResults.remove();
   }
   
   if (results.length === 0) {
-    alert('Aucun résultat trouvé');
+    alert('No results found');
     return;
   }
   
-  // Crée le conteneur de résultats
+  // Create results container
   const resultsDiv = document.createElement('div');
   resultsDiv.className = 'search-results';
   resultsDiv.innerHTML = `
     <div class="search-results-overlay" onclick="this.parentElement.remove()"></div>
     <div class="search-results-content">
       <button class="search-close" onclick="this.closest('.search-results').remove()">×</button>
-      <h2>${results.length} résultat(s)</h2>
+      <h2>${results.length} result(s)</h2>
       <ul>
         ${results.map(r => `
           <li>

@@ -3,7 +3,7 @@
   "title" (.Params.title | default .Title)
   "description" (.Params.description | default "")
 ) }}
-{{ $is_root := eq .RelPermalink "/produits/" }}
+{{ $is_root := eq .RelPermalink "/products/" }}
 <div class="container page-container">
   <header class="page-header">
     <h1 class="page-title">{{ $data.title }}</h1>
@@ -13,7 +13,7 @@
   </header>
 
   {{ if $is_root }}
-  {{/* Page racine /produits/ - Afficher les catégories */}}
+  {{/* Root page /products/ - Show categories */}}
   {{ if .Sections }}
   <section class="categories-grid-section">
     <div class="categories-grid">
@@ -25,7 +25,7 @@
           {{ if .Params.description }}
           <p class="category-description">{{ .Params.description }}</p>
           {{ end }}
-          <span class="category-count">{{ len .Pages }} produit(s)</span>
+          <span class="category-count">{{ len .Pages }} product(s)</span>
         </a>
       </article>
       {{ end }}
@@ -33,11 +33,11 @@
   </section>
   {{ else }}
   <div class="empty-state">
-    <p>Aucune catégorie disponible pour le moment.</p>
+    <p>No categories available at the moment.</p>
   </div>
   {{ end }}
   {{ else }}
-  {{/* Sous-catégorie - Afficher les produits */}}
+  {{/* Sub-category - Show products */}}
   {{ if .Pages }}
   <section class="products-grid-section">
     <div class="products-grid">
@@ -73,7 +73,7 @@
           {{ end }}
           
           <a href="{{ .RelPermalink }}" class="btn btn-secondary">
-            Voir les détails
+            View details
           </a>
         </div>
       </article>
@@ -82,13 +82,13 @@
   </section>
   {{ else }}
   <div class="empty-state">
-    <p>Aucun produit disponible dans cette catégorie pour le moment.</p>
+    <p>No products available in this category at the moment.</p>
   </div>
   {{ end }}
   
-  <!-- Lien retour -->
+  <!-- Back link -->
   <div class="back-link">
-    <a href="{{ "/produits/" | relURL }}" class="btn btn-outline">← Retour aux catégories</a>
+    <a href="{{ "/products/" | relURL }}" class="btn btn-outline">← Back to categories</a>
   </div>
   {{ end }}
 </div>

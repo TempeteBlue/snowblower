@@ -1,0 +1,94 @@
+name: Convert PDF First Pages to PNG
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - 'content/manuels/**/*.pdf'
+      - 'static/pdf/**/*.pdf'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  convert-pdf-to-png:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils
+
+      - name: Check if PDFs need conversion
+        id: check-pdfs
+        run: |
+          # Check if any PDFs don't have corresponding PNGs
+          convert_needed=false
+          for pdf in $(find content/manuels -name "*.pdf" -type f 2>/dev/null); do
+            pdf_name=$(basename "$pdf" .pdf)
+            png_dir=$(dirname "$pdf")
+            if [ ! -f "$png_dir/$pdf_name.png" ]; then
+              convert_needed=true
+              break
+            fi
+          done
+          
+          # Also check static/pdf/manuels
+          if [ "$convert_needed" = "false" ]; then
+            for pdf in $(find static/pdf/manuels -name "*.pdf" -type f 2>/dev/null); do
+              pdf_name=$(basename "$pdf" .pdf)
+              output_dir="content/manuels/$(dirname "${pdf#static/pdf/manuels/}")"
+              if [ ! -f "$output_dir/$pdf_name.png" ]; then
+                convert_needed=true
+                break
+              fi
+            done
+          fi
+          
+          echo "convert=$convert_needed" >> $GITHUB_OUTPUT
+          if [ "$convert_needed" = "true" ]; then
+            echo "PDFs need conversion"
+          else
+            echo "All PDFs already have PNGs"
+          fi
+
+      - name: Convert first page of PDFs to PNG
+        if: steps.check-pdfs.outputs.convert == 'true'
+        run: |
+          # Process PDFs in content/manuels
+          find content/manuels -name "*.pdf" -type f | while read pdf_file; do
+            pdf_dir=$(dirname "$pdf_file")
+            pdf_name=$(basename "$pdf_file" .pdf)
+            if pdftoppm -png -f 1 -l 1 -singlefile -r 150 "$pdf_file" "$pdf_dir/$pdf_name" 2>/dev/null; then
+              echo "Converted: $pdf_file -> $pdf_dir/$pdf_name.png"
+            else
+              echo "Skipped (error): $pdf_file"
+            fi
+          done
+          
+          # Process PDFs in static/pdf/manuels and copy PNGs to content/manuels
+          find static/pdf/manuels -name "*.pdf" -type f | while read pdf_file; do
+            pdf_name=$(basename "$pdf_file" .pdf)
+            output_dir="content/manuels/$(dirname "${pdf_file#static/pdf/manuels/}")"
+            mkdir -p "$output_dir"
+            if pdftoppm -png -f 1 -l 1 -singlefile -r 150 "$pdf_file" "$output_dir/$pdf_name" 2>/dev/null; then
+              echo "Converted: $pdf_file -> $output_dir/$pdf_name.png"
+            else
+              echo "Skipped (error): $pdf_file"
+            fi
+          done
+
+      - name: Commit PNG files
+        if: steps.check-pdfs.outputs.convert == 'true'
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "feat: Add manuel page pictures from PDF first pages"
+          file_pattern: "content/manuels/**/*.png"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

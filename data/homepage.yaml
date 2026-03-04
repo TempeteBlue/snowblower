@@ -1,37 +1,37 @@
-# Configuration de la page d'accueil
-# Éditez ce fichier pour modifier le contenu de la page d'accueil
+# Homepage configuration
+# Edit this file to modify homepage content
 
 # Hero section
 hero:
   title: "Tempête"
-  subtitle: "Tempête est le distributeur autorisé des pièces et produits Radtech ( www.radtech.ca), nous sommes fiers de vendre d’excellents produits fabriqués dans la région de Chaudière-Appalaches, et cela à d’excellent prix."
+  subtitle: "Tempête is the authorized distributor of Radtech parts and products (www.radtech.ca). We are proud to sell excellent products manufactured in the Chaudière-Appalaches region, and at excellent prices."
   button_primary:
-    text: "Voir nos produits"
-    url: "/produits/"
+    text: "View our products"
+    url: "/products/"
   button_secondary:
-    text: "Manuels de pièces"
-    url: "/manuels/"
-  # Image (placez l'image dans static/images/)
+    text: "Parts Manuals"
+    url: "/manuals/"
+  # Image (place image in static/images/)
   image: "images/hero-snowblower.jpg"
 
-# Features / Pourquoi nous choisir
+# Features / Why choose us
 features:
-  - title: "Service après-vente"
+  - title: "After-sales service"
     icon: "🔧"
-    description: "Pièces disponibles et support technique pour tous nos équipements"
+    description: "Parts available and technical support for all our equipment"
     
-  - title: "Manuels complets"
+  - title: "Complete manuals"
     icon: "📋"
-    description: "Documentation détaillée pour l'entretien et la réparation"
+    description: "Detailed documentation for maintenance and repair"
     
-  - title: "Expédition rapide"
+  - title: "Fast shipping"
     icon: "⚡"
-    description: "Pièces expédiées rapidement"
+    description: "Parts shipped quickly"
 
 # CTA Section (Call to Action)
 cta:
-  title: "Besoin d'aide pour trouver une pièce?"
-  description: "Notre équipe est disponible pour vous aider à identifier la bonne pièce pour votre équipement."
+  title: "Need help finding a part?"
+  description: "Our team is available to help you identify the right part for your equipment."
   button:
-    text: "Nous contacter"
+    text: "Contact us"
     url: "/contact/"

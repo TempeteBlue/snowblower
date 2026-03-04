@@ -1,0 +1,11 @@
+# Dépendances Python pour les scripts d'automatisation
+# Installer avec: pip install -r requirements.txt
+
+# Génération de contenu
+pyyaml>=6.0
+
+# Optionnel - pour validation CSV
+# pandas>=2.0.0
+
+# Optionnel - pour traitement d'images
+# Pillow>=10.0.0
