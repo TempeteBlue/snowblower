@@ -1,9 +1,6 @@
 ---
 title: "Options"
 description: "Manuels pour options et accessoires"
-url: "/manuals/options/"
-aliases:
-  - /manuels/options/
 ---
 
 # Options et accessoires

@@ -5,7 +5,7 @@ categories:
   - "Souffleuses"
   - "Professionnel"
   - "Best-seller"
-price: "14 499 $"
+price: "Prix sur demande"
 sku: "BLZ-B54C"
 in_stock: true
 date: "2024-01-01"

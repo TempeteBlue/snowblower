@@ -1,8 +1,4 @@
 ---
-title: "Manuals"
-description: "Technical documentation and parts manuals"
-slug: "manuals"
-url: "/manuals/"
-aliases:
-  - /manuels/
+title: "Manuels"
+description: "Documentation technique et manuels de pièces"
 ---

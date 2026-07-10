@@ -1,7 +1,4 @@
 ---
-title: "Used Equipment"
-description: "Verified and guaranteed pre-owned equipment"
-url: "/used/"
-aliases:
-  - /usage/
+title: "Équipements Usagés"
+description: "Équipements d'occasion vérifiés et garantis"
 ---
