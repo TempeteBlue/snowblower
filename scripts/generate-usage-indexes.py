@@ -96,10 +96,6 @@ def generate_usage_index(folder_path, category, usage_name):
     if "specs" in info:
         frontmatter["specs"] = info["specs"]
 
-    # Ajouter le prix
-    if "price" in info:
-        frontmatter["price"] = info["price"]
-
     # Ajouter l'état/condition
     if "condition" in info:
         frontmatter["condition"] = info["condition"]

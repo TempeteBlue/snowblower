@@ -1,4 +1,4 @@
-<article class="product-card" data-category="{{ range .Params.categories }}{{ . }}{{ end }}" data-price="{{ .Params.price }}">
+<article class="product-card" data-category="{{ range .Params.categories }}{{ . }}{{ end }}">
   <div class="product-image">
     {{ if .Params.image }}
     <img src="{{ .Params.image | relURL }}" alt="{{ .Title }}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'product-placeholder\'><img src=\'{{ "images/icone.svg" | relURL }}\' alt=\'\' style=\'width: 64px; height: 64px; filter: brightness(0) saturate(100%) invert(20%) sepia(100%) saturate(5000%) hue-rotate(0deg);\'></div>'">
@@ -33,9 +33,7 @@
     {{ end }}
     
     <div class="product-footer">
-      {{ if .Params.price }}
-      <span class="product-price">{{ .Params.price }} $</span>
-      {{ end }}
+      <span class="product-price product-price-inquiry">Price on inquiry</span>
       
       <a href="{{ .RelPermalink }}" class="btn btn-small">View details</a>
     </div>

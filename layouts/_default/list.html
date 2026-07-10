@@ -19,9 +19,7 @@
       {{ if .Summary }}
       <p>{{ .Summary }}</p>
       {{ end }}
-      {{ if .Params.price }}
-      <span class="price">{{ .Params.price }} $</span>
-      {{ end }}
+      <span class="price price-inquiry">Price on inquiry</span>
       <a href="{{ .RelPermalink }}" class="read-more">View details →</a>
     </article>
     {{ end }}

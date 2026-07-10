@@ -60,16 +60,9 @@
           {{ end }}
           
           <!-- Price -->
-          {{ if $data.price }}
-          <div class="price-block" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-            <span class="price" itemprop="price">{{ $data.price }}</span>
-            <meta itemprop="priceCurrency" content="CAD">
-            {{ if $data.price_note }}
-            <span class="price-note">{{ $data.price_note }}</span>
-            {{ end }}
-            <link itemprop="availability" href="{{ if $data.in_stock }}https://schema.org/InStock{{ else }}https://schema.org/OutOfStock{{ end }}">
+          <div class="price-block price-inquiry-block">
+            <span class="price price-inquiry">Price on inquiry</span>
           </div>
-          {{ end }}
           
           <!-- SKU and Stock -->
           <div class="product-meta">
@@ -158,24 +151,12 @@
   "@type": "Product",
   "name": {{ $data.title | jsonify }},
   "description": {{ $data.description | jsonify }},
-  {{ with $data.sku }}"sku": {{ . | jsonify }},{{ end }}
-  {{ if $data.images }}
+  {{ with $data.sku }}"sku": {{ . | jsonify }}{{ end }}
+  {{ if $data.images }},
   "image": [
     {{ range $i, $img := $data.images }}{{ if $i }}, {{ end }}"{{ $img | absURL }}"{{ end }}
-  ],
+  ]
   {{ end }}
-  {{ if $data.price }}
-  "offers": {
-    "@type": "Offer",
-    "price": {{ replaceRE "[^0-9.]" "" $data.price | jsonify }},
-    "priceCurrency": "CAD",
-    "availability": {{ if $data.in_stock }}"https://schema.org/InStock"{{ else }}"https://schema.org/OutOfStock"{{ end }},
-    "url": {{ .Permalink | jsonify }},
-    "seller": {
-      "@type": "Organization",
-      "name": {{ .Site.Title | jsonify }}
-    }
-  }{{ end }}
 }
 </script>
 {{ end }}

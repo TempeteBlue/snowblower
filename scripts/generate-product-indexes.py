@@ -96,10 +96,6 @@ def generate_product_index(folder_path, category, product_name):
     if "specs" in info:
         frontmatter["specs"] = info["specs"]
 
-    # Ajouter le prix
-    if "price" in info:
-        frontmatter["price"] = info["price"]
-
     # Catégorie basée sur le nom du dossier (pas sur le YAML)
     frontmatter["categories"] = [category]
 

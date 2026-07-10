@@ -126,12 +126,6 @@ def generate_markdown(metadata, usage_name, category, images_data, documents_dat
     # Catégorie basée sur le nom du dossier (pas sur le YAML)
     frontmatter["categories"] = [category]
 
-    # Prix
-    if "price" in metadata:
-        frontmatter["price"] = metadata["price"]
-    if "price_note" in metadata:
-        frontmatter["price_note"] = metadata["price_note"]
-
     # État/Condition
     if "condition" in metadata:
         frontmatter["condition"] = metadata["condition"]

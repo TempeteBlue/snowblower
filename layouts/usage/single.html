@@ -59,14 +59,9 @@
           {{ end }}
           
           <!-- Price -->
-          {{ if $data.price }}
-          <div class="price-block">
-            <span class="price">{{ $data.price }}</span>
-            {{ if $data.price_note }}
-            <span class="price-note">{{ $data.price_note }}</span>
-            {{ end }}
+          <div class="price-block price-inquiry-block">
+            <span class="price price-inquiry">Price on inquiry</span>
           </div>
-          {{ end }}
           
           <!-- Used equipment specific information -->
           <div class="product-meta">
