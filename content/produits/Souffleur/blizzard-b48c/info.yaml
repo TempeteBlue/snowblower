@@ -8,7 +8,7 @@ sku: "BLZ-B48C"
 in_stock: true
 date: "2024-01-01"
 specs:
-  Puissance recommandé-HP au PTO: "10-30"
+  Puissance recommandé-HP au PTO: "10 à 30 hp"
   Largeur de coupe: "48 pouces (122 cm)"
   Hauteur de coupe: "24 pouces (61 cm)"
   Diamètre de l'éventail: "20 pouces (51 cm)"
@@ -18,6 +18,6 @@ specs:
   Diamètre de la vis: "15 pouces (38 cm)"
   Modèle de chaîne entraînement de la vis: "# 50"
   Diamètre de la vis: "16 pouces"
-  Arbre à cardan standard: "20"
+  Arbre à cardan standard: "série 20"
   Poids approximatif: "420 lbs (191 kg)"
   
