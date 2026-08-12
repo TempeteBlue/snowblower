@@ -14,7 +14,7 @@ specs:
   Heures d'utilisation: "450 heures"
   État général: "Excellent"
   Dernière inspection: "Janvier 2025"
-    Vis sans fin: "Usure normale, 85% de vie restante"
+  Vis sans fin: "Usure normale, 85% de vie restante"
   Chute: "Excellente condition, aucune fissure"
   Système hydraulique: "Pression testée et certifiée"
 images: []
