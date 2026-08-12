@@ -1,4 +1,4 @@
 ---
 title: "Équipements Usagés"
-description: "Équipements d'occasion vérifiés et garantis"
+description: "Équipements d'occasion vérifiés"
 ---

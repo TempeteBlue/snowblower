@@ -18,7 +18,6 @@ specs:
   - Matériau de la vis: "Acier AR400"
   - Diamètre de la vis: "18 pouces"
   - Vitesse de rotation: "110-170 RPM"
-  - Garantie: "2 ans / 1000 heures"
   - Compatible avec: "Tracteurs 50-100 CV"
 images: []
 documents: []
